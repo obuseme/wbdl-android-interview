@@ -47,7 +47,8 @@ To pass the test, the app has to include the following:
 * Wow us or teach us something with your code
 * Paginate through the API requests for comic series, or the books in a series
 * Use the repository pattern
-* Add unit or UI or Robolectric tests
+* Code designed with a scalable testable architecture in mind
+* Add unit or UI or Robolectric tests for appropriate business logic
 * Use Coroutine or RxJava.  Coroutine is preferred.
 * Add local persistence for the data and synchronize it with the server
 
