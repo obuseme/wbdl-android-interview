@@ -37,19 +37,19 @@ To pass the test, the app has to include the following:
 * Note: The detail screen requires two API calls - one for the first page of comics in the series, and one for the first page of characters in the series.  The UI of the screen should remain in a loading state until both API requests complete.
 
 ## Requirements
-* Use Swift 5.0 or above.
-* Use Auto Layout or SwiftUI
-* There should be no errors, warnings or crashes
+* Use min API 21
+* Use MVVM Architecture
+* Kotlin
+* Works on different varients; i.e. tablets, phone landscape, small screen, large screen, etc.
 * The app should compile and run. If it needs additional setup, include instructions in the README.
 
 ## Bonus Points
 * Wow us or teach us something with your code
 * Paginate through the API requests for comic series, or the books in a series
-* Use SwiftUI and/or Combine
-* Add automated tests
-* Use an iOS 15 API or Feature
+* Use the repository pattern
+* Add unit or UI or Robolectric tests
+* Use Coroutine or RxJava.  Coroutine is preferred.
 * Add local persistence for the data and synchronize it with the server
-* Don't use any 3rd party libraries
 
 ## Guidelines
 * Keep your files short and sweet, use extensions and break out helpers when appropriate.
