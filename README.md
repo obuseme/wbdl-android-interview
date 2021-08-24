@@ -65,4 +65,4 @@ To pass the test, the app has to include the following:
 
 ## Any Questions
 
-If you have any questions, comments or concerns, please email Andy Obusek at andrew.obusek@warnerbros.com.
+If you have any questions, comments or concerns, please email Andy Obusek at andrew.obusek@warnerbros.com and Taher Saeed Taher.Saeed@warnerbros.com
