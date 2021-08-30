@@ -15,7 +15,14 @@ class MarvelRepository(private val marvelAPI: MarvelAPI) {
                 timeStamp = timeStamp,
                 hash = Util.getMD5Hash(timeStamp)
             )
-            Resource.success(response.body()?.data)
+
+            return if(response.isSuccessful) {
+                Resource.success(response.body()?.data)
+            }
+            else {
+                Resource.error(response.toString(), null)
+            }
+
         } catch (e: Exception) {
             Resource.error(e.message ?: "", null)
         }

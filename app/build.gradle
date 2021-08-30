@@ -53,6 +53,7 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.3.1'
     implementation 'com.google.android.material:material:1.4.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.0'
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1"
 
     // Retrofit for API Calls
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
@@ -61,6 +62,9 @@ dependencies {
 
     // DI Framework
     implementation "io.insert-koin:koin-android:$koin_version"
+
+    // For use of State Flow
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.2'
 
     // Test Libaries
     testImplementation 'junit:junit:4.13.2'
