@@ -7,5 +7,6 @@ data class Comic(
     val thumbnail: ComicThumbnail,
     val comics: ComicInfo,
     val startYear: Int?,
-    val endYear: Int?
+    val endYear: Int?,
+    val rating: String
 )

@@ -42,6 +42,9 @@ object Util {
             this
     }
 
+    fun String.toRating(): String =
+        if(isNullOrEmpty()) "?" else this
+
     fun RecyclerView.setDivider(@DrawableRes drawableRes: Int) {
         val divider = DividerItemDecoration(
             this.context,

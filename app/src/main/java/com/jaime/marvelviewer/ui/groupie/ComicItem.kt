@@ -6,6 +6,7 @@ import com.jaime.marvelviewer.R
 import com.jaime.marvelviewer.databinding.ComicItemBinding
 import com.jaime.marvelviewer.model.Comic
 import com.jaime.marvelviewer.util.Util.toComicYear
+import com.jaime.marvelviewer.util.Util.toRating
 import com.xwray.groupie.viewbinding.BindableItem
 
 class ComicItem(private val comic: Comic): BindableItem<ComicItemBinding>() {
@@ -19,6 +20,7 @@ class ComicItem(private val comic: Comic): BindableItem<ComicItemBinding>() {
         viewBinding.textViewComicItemNumber.text = comic.comics.available.toString()
         viewBinding.textViewComicStartDate.text = (comic.startYear ?: 0).toString().toComicYear()
         viewBinding.textViewComicEndDate.text = (comic.endYear ?: 0).toString().toComicYear()
+        viewBinding.textViewComicRating.text = comic.rating.toRating()
 
         Glide.with(viewBinding.root)
             .load(comic.thumbnail.getFullImage())
