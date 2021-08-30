@@ -1,3 +1,7 @@
 <resources>
-    <string name="app_name">MarvelViewer</string>
+    <string name="app_name">Marvel Viewer</string>
+
+    <string name="comic_item_number_of_comics">Number of Comics:</string>
+    <string name="comic_item_start_date">Start Date:</string>
+    <string name="comic_item_end_date">End Date:</string>
 </resources>
