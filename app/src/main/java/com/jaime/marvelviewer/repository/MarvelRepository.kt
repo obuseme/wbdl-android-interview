@@ -6,11 +6,11 @@ import com.jaime.marvelviewer.util.Constants
 import com.jaime.marvelviewer.util.Resource
 import com.jaime.marvelviewer.util.Util
 
-class MarvelRepository(private val request: MarvelAPI) {
+class MarvelRepository(private val marvelAPI: MarvelAPI) {
     suspend fun getComicData(): Resource<ComicData> {
         return try {
             val timeStamp = Util.timeStamp
-            val response = request.getSeries(
+            val response = marvelAPI.getSeries(
                 apiKey = Constants.API_KEY,
                 timeStamp = timeStamp,
                 hash = Util.getMD5Hash(timeStamp)

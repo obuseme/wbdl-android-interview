@@ -1,26 +1,30 @@
 package com.jaime.marvelviewer
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import org.junit.After
+import com.jaime.marvelviewer.repository.MarvelRepository
 
 import org.junit.Before
 import org.junit.Rule
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
+import org.koin.core.context.startKoin
 
 @RunWith(JUnit4::class)
-class RepositoryTests {
+class RepositoryTests: BaseTest() {
 
     @get:Rule
     var instantExecutorRule = InstantTaskExecutorRule()
 
+    private lateinit var repo: MarvelRepository
+
     @Before
-    fun start(){
-
+    override fun setup(){
+        super.setup()
+        startKoin {
+            modules(
+                configureTestAppComponent("/")
+            )
+        }
     }
 
-    @After
-    fun testDown() {
-
-    }
 }

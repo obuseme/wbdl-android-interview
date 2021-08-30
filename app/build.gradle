@@ -30,6 +30,17 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
+    sourceSets {
+        test {
+            java {
+                srcDirs = [ 'src/test/java' ]
+            }
+            resources {
+                srcDirs = [ 'src/test/res' ]
+            }
+        }
+    }
 }
 
 dependencies {
@@ -49,12 +60,11 @@ dependencies {
     implementation 'com.squareup.okhttp3:logging-interceptor:4.3.1'
 
     // DI Framework
-    implementation "org.koin:koin-android:$koin_version"
-    implementation "org.koin:koin-android-viewmodel:$koin_version"
+    implementation "io.insert-koin:koin-android:$koin_version"
 
     // Test Libaries
     testImplementation 'junit:junit:4.13.2'
-    testImplementation "org.koin:koin-test:$koin_version"
+    testImplementation "io.insert-koin:koin-test:$koin_version"
     testImplementation "com.squareup.okhttp3:mockwebserver:$mockwebserver_version"
     testImplementation "android.arch.core:core-testing:1.1.1"
 
