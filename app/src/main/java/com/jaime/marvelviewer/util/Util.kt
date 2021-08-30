@@ -1,19 +1,17 @@
 package com.jaime.marvelviewer.util
 
+import com.jaime.marvelviewer.util.Constants.API_KEY
+import com.jaime.marvelviewer.util.Constants.PRIVATE_KEY
 import java.math.BigInteger
 import java.security.MessageDigest
 import java.util.concurrent.TimeUnit
 
 object Util {
 
-    const val BASE_URL = "http://gateway.marvel.com/v1/public"
-    const val API_KEY = "57c668bbcdbddcf93f85377d9a635561"
-    const val PRIVATE_KEY = "5d338f8e20bdc1b20255fa2328221a5a908c8c4b"
-
     /**
      * Get current timestamp, used for API param
      */
-    private val timeStamp: String = java.lang.String.valueOf(
+    val timeStamp: String = java.lang.String.valueOf(
         TimeUnit.MILLISECONDS.toSeconds(
             System.currentTimeMillis()
         )
@@ -22,7 +20,7 @@ object Util {
     /**
      * Create MD5 Hash param as per Marvel API guidelines
      */
-    fun getMD5Hash() = "$timeStamp$PRIVATE_KEY$API_KEY".toMS5Hash()
+    fun getMD5Hash(timeStamp: String) = "$timeStamp$PRIVATE_KEY$API_KEY".toMS5Hash()
 
 
     /**
