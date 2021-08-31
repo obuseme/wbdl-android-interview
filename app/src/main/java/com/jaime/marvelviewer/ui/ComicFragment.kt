@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.jaime.marvelviewer.R
 import com.jaime.marvelviewer.databinding.FragmentComicBinding
@@ -18,15 +17,15 @@ import com.jaime.marvelviewer.util.Util
 import com.jaime.marvelviewer.util.Util.setDivider
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
-import kotlinx.coroutines.launch
 import org.koin.java.KoinJavaComponent.inject
-import kotlinx.coroutines.flow.collect
+
 
 class ComicFragment: Fragment() {
     private var _binding: FragmentComicBinding? = null
     private val binding get() = _binding!!
 
-    val viewModel: MarvelSeriesViewModel by inject(MarvelSeriesViewModel::class.java)
+    private val viewModel: MarvelSeriesViewModel by inject(MarvelSeriesViewModel::class.java)
+    private val comicGroupAdapter = GroupAdapter<GroupieViewHolder>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -40,24 +39,9 @@ class ComicFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        lifecycleScope.launch {
-            viewModel.comicData.collect {
-                toastMessage(it.errorCode)
-                when(it.status) {
-                    Status.SUCCESS -> {
-                        initRecyclerView(it.data)
-                        binding.progressBarLoadingComics.visibility = View.GONE
-                    }
-                    Status.ERROR -> {
-                        binding.progressBarLoadingComics.visibility = View.GONE
-                    }
-                    Status.LOADING -> {
-                        binding.progressBarLoadingComics.visibility = View.VISIBLE
-                    }
-                }
-            }
-        }
+        initObserver()
+        initSwipeRefreshLayout()
+        initRecyclerView()
     }
 
     override fun onDestroyView() {
@@ -66,21 +50,35 @@ class ComicFragment: Fragment() {
     }
 
     /**
-     * Initialise recyclerview with groupie bindings
+     * Initialise Observer LiveData from ViewModel
      */
-    private fun initRecyclerView(comicData: List<Comic>?) {
-        val groupAdapter = GroupAdapter<GroupieViewHolder>()
+    private fun initObserver() {
+        viewModel.comicData.observe(viewLifecycleOwner) {
+            toastMessage(it.errorCode)
+            when(it.status) {
+                Status.SUCCESS -> {
+                    updateData(it.data)
+                    binding.progressBarLoadingComics.visibility = View.GONE
+                }
+                Status.ERROR -> {
+                    binding.progressBarLoadingComics.visibility = View.GONE
+                }
+                Status.LOADING -> {
+                    binding.progressBarLoadingComics.visibility = View.VISIBLE
+                }
+            }
+        }
+    }
 
+    /**
+     * Update the recyclerview data
+     */
+    private fun updateData(comicData: List<Comic>?) {
+        comicGroupAdapter.clear()
         comicData?.forEach {
-            groupAdapter.add(
+            comicGroupAdapter.add(
                 ComicItem(it)
             )
-        }
-
-        binding.recyclerViewComicItems.apply {
-            adapter = groupAdapter
-            layoutManager = LinearLayoutManager(context)
-            setDivider(R.drawable.recycler_view_divider)
         }
     }
 
@@ -98,6 +96,27 @@ class ComicFragment: Fragment() {
                     Toast.LENGTH_LONG
                 ).show()
             }
+        }
+    }
+
+    /**
+     * Initialise RecyclerView Properties
+     */
+    private fun initRecyclerView() {
+        binding.recyclerViewComicItems.apply {
+            layoutManager = LinearLayoutManager(context)
+            setDivider(R.drawable.recycler_view_divider)
+            adapter = comicGroupAdapter
+        }
+    }
+
+    /**
+     * Initialise Swipe Refresh Properties
+     */
+    private fun initSwipeRefreshLayout() {
+        binding.swipeToRefresh.setOnRefreshListener {
+            binding.swipeToRefresh.isRefreshing = false
+            viewModel.getComicData()
         }
     }
 }

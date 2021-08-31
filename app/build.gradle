@@ -58,7 +58,6 @@ dependencies {
     implementation 'com.google.android.material:material:1.4.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.0'
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1"
-    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.3.1"
 
     // Retrofit for API Calls
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
@@ -68,12 +67,12 @@ dependencies {
     // DI Framework
     implementation "io.insert-koin:koin-android:$koin_version"
 
-    // For use of State Flow
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.2'
-
     // Recyclerview Library
     implementation "com.github.lisawray.groupie:groupie:$groupie_version"
     implementation "com.github.lisawray.groupie:groupie-viewbinding:$groupie_version"
+
+    // Swipe To Refresh Layout
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:$swipe_refresh_version"
 
     // Image Loading
     implementation "com.github.bumptech.glide:glide:$glide_version"
