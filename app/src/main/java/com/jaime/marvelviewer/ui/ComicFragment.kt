@@ -4,14 +4,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.jaime.marvelviewer.R
 import com.jaime.marvelviewer.databinding.FragmentComicBinding
-import com.jaime.marvelviewer.model.ComicData
+import com.jaime.marvelviewer.db.Comic
 import com.jaime.marvelviewer.ui.groupie.ComicItem
 import com.jaime.marvelviewer.util.Status
+import com.jaime.marvelviewer.util.Util
 import com.jaime.marvelviewer.util.Util.setDivider
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
@@ -40,6 +42,7 @@ class ComicFragment: Fragment() {
 
         lifecycleScope.launch {
             viewModel.comicData.collect {
+                toastMessage(it.message)
                 when(it.status) {
                     Status.SUCCESS -> {
                         initRecyclerView(it.data)
@@ -64,10 +67,10 @@ class ComicFragment: Fragment() {
     /**
      * Initialise recyclerview with groupie bindings
      */
-    private fun initRecyclerView(comicData: ComicData?) {
+    private fun initRecyclerView(comicData: List<Comic>?) {
         val groupAdapter = GroupAdapter<GroupieViewHolder>()
 
-        comicData?.results?.forEach {
+        comicData?.forEach {
             groupAdapter.add(
                 ComicItem(it)
             )
@@ -77,6 +80,23 @@ class ComicFragment: Fragment() {
             adapter = groupAdapter
             layoutManager = LinearLayoutManager(context)
             setDivider(R.drawable.recycler_view_divider)
+        }
+    }
+
+    /**
+     * Check if a toast message is available to be displayed
+     * @param message the string with a potential message from the ViewModel to display
+     */
+    private fun toastMessage(message: String?) {
+        message?.let {
+            val errorMessage = Util.getStringFromErrorCode(resources, it)
+            if (errorMessage.isNotEmpty()) {
+                Toast.makeText(
+                    context,
+                    errorMessage,
+                    Toast.LENGTH_LONG
+                ).show()
+            }
         }
     }
 }

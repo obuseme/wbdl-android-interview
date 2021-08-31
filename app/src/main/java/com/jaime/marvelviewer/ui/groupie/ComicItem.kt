@@ -4,7 +4,7 @@ import android.view.View
 import com.bumptech.glide.Glide
 import com.jaime.marvelviewer.R
 import com.jaime.marvelviewer.databinding.ComicItemBinding
-import com.jaime.marvelviewer.model.Comic
+import com.jaime.marvelviewer.db.Comic
 import com.jaime.marvelviewer.util.Util.toComicYear
 import com.jaime.marvelviewer.util.Util.toRating
 import com.xwray.groupie.viewbinding.BindableItem
@@ -20,7 +20,7 @@ class ComicItem(private val comic: Comic): BindableItem<ComicItemBinding>() {
 
         // Load ImageView with image data from comic object
         Glide.with(viewBinding.root)
-            .load(comic.thumbnail.getFullImage())
+            .load(comic.thumbnail)
             .placeholder(R.drawable.marvel_placeholder)
             .error(R.drawable.marvel_placeholder)
             .into(viewBinding.imageViewComicItem)
@@ -33,7 +33,7 @@ class ComicItem(private val comic: Comic): BindableItem<ComicItemBinding>() {
     private fun bindTextViews(viewBinding: ComicItemBinding) {
         viewBinding.textViewComicItemTitle.text = comic.title
 
-        val comicsAvailable = comic.comics.available.toString()
+        val comicsAvailable = comic.available.toString()
         with(viewBinding.textViewComicItemNumber) {
             text = String.format(this.text.toString(), comicsAvailable)
         }
@@ -48,7 +48,7 @@ class ComicItem(private val comic: Comic): BindableItem<ComicItemBinding>() {
             text = String.format(this.text.toString(), endYear)
         }
 
-        val rating = comic.rating.toRating()
+        val rating = comic.rating?.toRating()
         with(viewBinding.textViewComicRating) {
             text = String.format(this.text.toString(), rating)
         }

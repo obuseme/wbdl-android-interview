@@ -8,6 +8,7 @@ buildscript {
         mockwebserver_version = "4.9.1"
         groupie_version = "2.9.0"
         glide_version = "4.12.0"
+        room_version = "2.3.0"
     }
 
     repositories {

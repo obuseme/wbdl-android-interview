@@ -1,11 +1,14 @@
 package com.jaime.marvelviewer.util
 
+import android.content.res.Resources
 import androidx.annotation.DrawableRes
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
+import com.jaime.marvelviewer.R
 import com.jaime.marvelviewer.util.Constants.API_KEY
 import com.jaime.marvelviewer.util.Constants.PRIVATE_KEY
+import java.lang.Exception
 import java.math.BigInteger
 import java.security.MessageDigest
 import java.util.concurrent.TimeUnit
@@ -68,5 +71,26 @@ object Util {
             divider.setDrawable(it)
             addItemDecoration(divider)
         }
+    }
+
+    /**
+     * Get a human readable string from Android resources (strings.xml)
+     * @param resources the reference to Android resources
+     * @param errorCode the error code to be converted back into its enum form [ErrorCode]
+     * @return the string error message
+     */
+    fun getStringFromErrorCode(resources: Resources, errorCode: String?): String {
+        return try {
+            val error = ErrorCode.valueOf(errorCode ?: "")
+            return when (error) {
+                ErrorCode.DB_EMPTY_OR_NULL -> {
+                    resources.getString(R.string.error_db_null_or_empty)
+                }
+                ErrorCode.USING_CACHED_DATA -> {
+                    resources.getString(R.string.error_using_cached_data)
+                }
+            }
+        }
+        catch (e: Exception) { "" }
     }
 }

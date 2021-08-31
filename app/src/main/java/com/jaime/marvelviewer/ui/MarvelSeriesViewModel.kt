@@ -2,7 +2,7 @@ package com.jaime.marvelviewer.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.jaime.marvelviewer.model.ComicData
+import com.jaime.marvelviewer.db.Comic
 import com.jaime.marvelviewer.repository.MarvelRepository
 import com.jaime.marvelviewer.util.Resource
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -13,8 +13,8 @@ import org.koin.java.KoinJavaComponent.inject
 class MarvelSeriesViewModel: ViewModel() {
     private val repository: MarvelRepository by inject(MarvelRepository::class.java)
 
-    private val _comicData = MutableStateFlow<Resource<ComicData>>(Resource.loading(null))
-    val comicData: StateFlow<Resource<ComicData>> = _comicData
+    private val _comicData = MutableStateFlow<Resource<List<Comic>>>(Resource.loading(null))
+    val comicData: StateFlow<Resource<List<Comic>>> = _comicData
 
     init {
         getComicData()
@@ -22,7 +22,7 @@ class MarvelSeriesViewModel: ViewModel() {
 
     fun getComicData() {
         viewModelScope.launch {
-            _comicData.value = repository.getComicData()
+            _comicData.value = repository.requestComicData()
         }
     }
 }
