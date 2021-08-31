@@ -13,7 +13,7 @@ import org.koin.java.KoinJavaComponent.inject
 class MarvelSeriesViewModel: ViewModel() {
     private val repository: MarvelRepository by inject(MarvelRepository::class.java)
 
-    private val _comicData = MutableStateFlow<Resource<List<Comic>>>(Resource.loading(null))
+    private val _comicData = MutableStateFlow<Resource<List<Comic>>>(Resource.loading())
     val comicData: StateFlow<Resource<List<Comic>>> = _comicData
 
     init {

@@ -38,7 +38,7 @@ class MarvelRepository(
                     }
                     return getComicDataFromDB(true)
                 }
-                return Resource.error(response.toString(), null)
+                return Resource.error(ErrorCode.NETWORK_ERROR, null)
             }
             else {
                getComicDataFromDB(false)
@@ -59,10 +59,10 @@ class MarvelRepository(
         if(apiResponseSuccessful) return Resource.success(data = comicData)
 
         return if(comicData.isNotEmpty()) {
-            return Resource.success(ErrorCode.USING_CACHED_DATA.name, comicData)
+            return Resource.success(ErrorCode.DB_USING_CACHED_DATA, comicData)
         }
         else {
-            Resource.error(ErrorCode.DB_EMPTY_OR_NULL.name, null)
+            Resource.error(ErrorCode.DB_EMPTY_OR_NULL, null)
         }
     }
 

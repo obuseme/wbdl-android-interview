@@ -12,6 +12,7 @@ import com.jaime.marvelviewer.R
 import com.jaime.marvelviewer.databinding.FragmentComicBinding
 import com.jaime.marvelviewer.db.Comic
 import com.jaime.marvelviewer.ui.groupie.ComicItem
+import com.jaime.marvelviewer.util.ErrorCode
 import com.jaime.marvelviewer.util.Status
 import com.jaime.marvelviewer.util.Util
 import com.jaime.marvelviewer.util.Util.setDivider
@@ -42,7 +43,7 @@ class ComicFragment: Fragment() {
 
         lifecycleScope.launch {
             viewModel.comicData.collect {
-                toastMessage(it.message)
+                toastMessage(it.errorCode)
                 when(it.status) {
                     Status.SUCCESS -> {
                         initRecyclerView(it.data)
@@ -85,11 +86,11 @@ class ComicFragment: Fragment() {
 
     /**
      * Check if a toast message is available to be displayed
-     * @param message the string with a potential message from the ViewModel to display
+     * @param errorCode the unique error value
      */
-    private fun toastMessage(message: String?) {
-        message?.let {
-            val errorMessage = Util.getStringFromErrorCode(resources, it)
+    private fun toastMessage(errorCode: ErrorCode?) {
+        errorCode?.let {
+            val errorMessage = Util.getStringFromErrorCode(resources, errorCode)
             if (errorMessage.isNotEmpty()) {
                 Toast.makeText(
                     context,

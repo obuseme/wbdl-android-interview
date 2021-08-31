@@ -1,18 +1,18 @@
 package com.jaime.marvelviewer.util
 
-data class Resource<out T>(val status: Status, val data: T?, val message: String?) {
+data class Resource<out T>(val status: Status, val data: T?, val errorCode: ErrorCode?) {
 
     companion object {
-        fun <T> success(msg: String? = null, data: T?): Resource<T> {
-            return Resource(Status.SUCCESS, data, msg)
+        fun <T> success(errorCode: ErrorCode? = null, data: T?): Resource<T> {
+            return Resource(Status.SUCCESS, data, errorCode)
         }
 
-        fun <T> error(msg: String, data: T?): Resource<T> {
-            return Resource(Status.ERROR, data, msg)
+        fun <T> error(errorCode: ErrorCode, data: T?): Resource<T> {
+            return Resource(Status.ERROR, data, errorCode)
         }
 
-        fun <T> loading(data: T?): Resource<T> {
-            return Resource(Status.LOADING, data, null)
+        fun <T> loading(): Resource<T> {
+            return Resource(Status.LOADING, null, null)
         }
     }
 
