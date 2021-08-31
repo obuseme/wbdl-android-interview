@@ -28,85 +28,45 @@
         tools:text="Superior Spider-Man Vol. 2: Otto-matic (2019)" />
 
     <TextView
-        android:id="@+id/textViewComicItemNumberTitle"
+        android:id="@+id/textViewComicItemNumber"
         style="@style/Marvel.Text"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/comic_item_number_of_comics"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewComicItemTitle" />
 
     <TextView
-        android:id="@+id/textViewComicItemNumber"
-        style="@style/Marvel.Text.Data"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/textViewComicItemNumberTitle"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textViewComicItemNumberTitle"
-        app:layout_constraintTop_toTopOf="@+id/textViewComicItemNumberTitle"
-        tools:text="10" />
-
-    <TextView
-        android:id="@+id/textViewComicStartDateTitle"
+        android:id="@+id/textViewComicStartDate"
         style="@style/Marvel.Text"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/comic_item_start_date"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewComicItemNumber" />
 
     <TextView
-        android:id="@+id/textViewComicStartDate"
-        style="@style/Marvel.Text.Data"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/textViewComicStartDateTitle"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textViewComicStartDateTitle"
-        app:layout_constraintTop_toTopOf="@+id/textViewComicStartDateTitle"
-        tools:text="2010" />
-
-    <TextView
-        android:id="@+id/textViewComicEndDateTitle"
+        android:id="@+id/textViewComicEndDate"
         style="@style/Marvel.Text"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="@string/comic_item_end_date"
         android:paddingBottom="@dimen/unit_half"
+        android:text="@string/comic_item_end_date"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewComicStartDate" />
 
     <TextView
-        android:id="@+id/textViewComicEndDate"
-        style="@style/Marvel.Text.Data"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/textViewComicEndDateTitle"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textViewComicEndDateTitle"
-        app:layout_constraintTop_toTopOf="@+id/textViewComicEndDateTitle"
-        tools:text="2021" />
-
-    <TextView
-        android:id="@+id/textViewComicRatingTitle"
+        android:id="@+id/textViewComicRating"
         style="@style/Marvel.Text"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="@string/comic_item_rated"
         android:paddingBottom="@dimen/unit_half"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewComicEndDateTitle" />
-
-    <TextView
-        android:id="@+id/textViewComicRating"
-        style="@style/Marvel.Text.Data"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/textViewComicRatingTitle"
+        android:text="@string/comic_item_rated"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textViewComicRatingTitle"
-        app:layout_constraintTop_toTopOf="@+id/textViewComicRatingTitle"
-        tools:text="T+" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewComicEndDate" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

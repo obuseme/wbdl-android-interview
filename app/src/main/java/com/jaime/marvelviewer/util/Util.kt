@@ -36,15 +36,25 @@ object Util {
         return BigInteger(1, md.digest(this.toByteArray())).toString(16).padStart(32, '0')
     }
 
+    /**
+     * Specify 'Unknown' if comic year is zero
+     */
     fun String.toComicYear(): String {
-        return if(this == "0") "N/A"
+        return if(this == "0") "Unknown"
         else
             this
     }
 
+    /**
+     * Specify '?' if rating is unknown
+     */
     fun String.toRating(): String =
         if(isNullOrEmpty()) "?" else this
 
+    /**
+     * Set a recyclerview divider
+     * @param drawableRes the reference to the specified drawable used as the divider
+     */
     fun RecyclerView.setDivider(@DrawableRes drawableRes: Int) {
         val divider = DividerItemDecoration(
             this.context,

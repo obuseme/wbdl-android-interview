@@ -16,16 +16,41 @@ class ComicItem(private val comic: Comic): BindableItem<ComicItemBinding>() {
         ComicItemBinding.bind(view)
 
     override fun bind(viewBinding: ComicItemBinding, position: Int) {
-        viewBinding.textViewComicItemTitle.text = comic.title
-        viewBinding.textViewComicItemNumber.text = comic.comics.available.toString()
-        viewBinding.textViewComicStartDate.text = (comic.startYear ?: 0).toString().toComicYear()
-        viewBinding.textViewComicEndDate.text = (comic.endYear ?: 0).toString().toComicYear()
-        viewBinding.textViewComicRating.text = comic.rating.toRating()
+        bindTextViews(viewBinding)
 
+        // Load ImageView with image data from comic object
         Glide.with(viewBinding.root)
             .load(comic.thumbnail.getFullImage())
             .placeholder(R.drawable.marvel_placeholder)
             .error(R.drawable.marvel_placeholder)
             .into(viewBinding.imageViewComicItem)
+    }
+
+    /**
+     * Bind the TextView text property to the [Comic] data
+     * @param viewBinding the reference to the recyclerview item view
+     */
+    private fun bindTextViews(viewBinding: ComicItemBinding) {
+        viewBinding.textViewComicItemTitle.text = comic.title
+
+        val comicsAvailable = comic.comics.available.toString()
+        with(viewBinding.textViewComicItemNumber) {
+            text = String.format(this.text.toString(), comicsAvailable)
+        }
+
+        val startYear = (comic.startYear ?: 0).toString().toComicYear()
+        with(viewBinding.textViewComicStartDate) {
+            text = String.format(this.text.toString(), startYear)
+        }
+
+        val endYear = (comic.endYear ?: 0).toString().toComicYear()
+        with(viewBinding.textViewComicEndDate) {
+            text = String.format(this.text.toString(), endYear)
+        }
+
+        val rating = comic.rating.toRating()
+        with(viewBinding.textViewComicRating) {
+            text = String.format(this.text.toString(), rating)
+        }
     }
 }
