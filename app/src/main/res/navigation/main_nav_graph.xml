@@ -29,6 +29,10 @@
             android:name="comicId"
             app:argType="integer"
             android:defaultValue="0" />
+        <argument
+            android:name="comicTitle"
+            app:argType="string"
+            android:defaultValue="" />
     </fragment>
 
 </navigation>

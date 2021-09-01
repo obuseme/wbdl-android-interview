@@ -1,7 +1,7 @@
 package com.jaime.marvelviewer.util
 
 import com.jaime.marvelviewer.db.Comic
-import com.jaime.marvelviewer.model.ComicData
+import com.jaime.marvelviewer.model.comic.ComicData
 
 /**
  * TODO: Temporary Class for converting API Comic Class into Database Comic Class
@@ -19,7 +19,7 @@ object ComicConverter {
         apiComics?.results?.forEach {
             dbComics.add(
                 Comic(
-                    0,
+                    it.id,
                     it.title,
                     it.description,
                     it.thumbnail.getFullImage(),

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
 
@@ -37,4 +38,10 @@ abstract class BaseFragment<VB: ViewBinding>: Fragment() {
     }
 
     abstract fun initOnViewCreated()
+
+    fun initActionBar(title: String = "", showBack: Boolean = false) {
+        val supportActionBar = (activity as? AppCompatActivity)?.supportActionBar
+        supportActionBar?.title = title
+        supportActionBar?.setDisplayHomeAsUpEnabled(showBack)
+    }
 }

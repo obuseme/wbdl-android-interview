@@ -14,4 +14,7 @@
         <item name="android:gravity">center</item>
         <item name="android:textStyle">bold</item>
     </style>
+    <style name="Marvel.Text.Title.Dark">
+        <item name="android:textColor">@android:color/black</item>
+    </style>
 </resources>

@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.jaime.marvelviewer.R
 import com.jaime.marvelviewer.databinding.FragmentComicBinding
 import com.jaime.marvelviewer.db.Comic
-import com.jaime.marvelviewer.ui.MarvelSeriesViewModel
+import com.jaime.marvelviewer.ui.ComicViewModel
 import com.jaime.marvelviewer.ui.groupie.ComicItem
 import com.jaime.marvelviewer.util.ErrorCode
 import com.jaime.marvelviewer.util.Status
@@ -20,13 +20,14 @@ import com.xwray.groupie.GroupieViewHolder
 import org.koin.java.KoinJavaComponent.inject
 
 class ComicFragment: BaseFragment<FragmentComicBinding>() {
-    private val viewModel: MarvelSeriesViewModel by inject(MarvelSeriesViewModel::class.java)
+    private val viewModel: ComicViewModel by inject(ComicViewModel::class.java)
     private val comicGroupAdapter = GroupAdapter<GroupieViewHolder>()
 
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentComicBinding
         get() = FragmentComicBinding::inflate
 
     override fun initOnViewCreated() {
+        initActionBar(resources.getString(R.string.app_name), false)
         initObserver()
         initSwipeRefreshLayout()
         initRecyclerView()
@@ -92,8 +93,9 @@ class ComicFragment: BaseFragment<FragmentComicBinding>() {
             // Get comic item unique ID and pass as NavArg, id will be needed for detail API
             val comicItem = item as? ComicItem
             val comicId = comicItem?.comic?.id ?: 0
+            val comicTitle = comicItem?.comic?.title ?: ""
             findNavController().navigate(
-                ComicFragmentDirections.actionComicFragmentToComicDetailFragment(comicId)
+                ComicFragmentDirections.actionComicFragmentToComicDetailFragment(comicId, comicTitle)
             )
         }
 

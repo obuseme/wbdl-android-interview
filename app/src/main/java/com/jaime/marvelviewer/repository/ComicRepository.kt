@@ -7,7 +7,7 @@ import com.jaime.marvelviewer.util.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-class MarvelRepository(
+class ComicRepository(
     private val marvelAPI: MarvelAPI,
     private val comicDAO: ComicDAO) {
 
@@ -21,7 +21,7 @@ class MarvelRepository(
             val timeStamp = Util.timeStamp
 
             // Make response to API
-            val response = marvelAPI.getSeries(
+            val response = marvelAPI.getAllSeries(
                 apiKey = Constants.API_KEY,
                 timeStamp = timeStamp,
                 hash = Util.getMD5Hash(timeStamp)

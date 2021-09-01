@@ -1,8 +1,11 @@
 package com.jaime.marvelviewer.di
 
-import com.jaime.marvelviewer.ui.MarvelSeriesViewModel
+import com.jaime.marvelviewer.ui.CharacterViewModel
+import com.jaime.marvelviewer.ui.ComicViewModel
+import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val viewModelModule = module {
-    factory { MarvelSeriesViewModel() }
+    viewModel { ComicViewModel() }
+    viewModel { CharacterViewModel() }
 }

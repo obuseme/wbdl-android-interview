@@ -1,7 +1,7 @@
 package com.jaime.marvelviewer
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.jaime.marvelviewer.repository.MarvelRepository
+import com.jaime.marvelviewer.repository.ComicRepository
 
 import org.junit.Before
 import org.junit.Rule
@@ -15,7 +15,7 @@ class RepositoryTests: BaseTest() {
     @get:Rule
     var instantExecutorRule = InstantTaskExecutorRule()
 
-    private lateinit var repo: MarvelRepository
+    private lateinit var repo: ComicRepository
 
     @Before
     override fun setup(){

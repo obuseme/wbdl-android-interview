@@ -1,6 +1,6 @@
 package com.jaime.marvelviewer.model
 
-class ComicThumbnail(
+class Thumbnail(
     val path: String,
     val extension: String
 ) {

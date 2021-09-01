@@ -1,4 +1,4 @@
-package com.jaime.marvelviewer.model
+package com.jaime.marvelviewer.model.comic
 
 data class ComicData(
     val offset: Int,
