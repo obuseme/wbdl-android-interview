@@ -11,6 +11,7 @@ import com.jaime.marvelviewer.model.character.Character
 import com.jaime.marvelviewer.ui.CharacterViewModel
 import com.jaime.marvelviewer.ui.groupie.CharacterItem
 import com.jaime.marvelviewer.ui.groupie.HeaderItem
+import com.jaime.marvelviewer.ui.groupie.ImageItem
 import com.jaime.marvelviewer.util.Constants.COMIC_DETAIL_SPAN_SIZE
 import com.jaime.marvelviewer.util.Status
 import com.xwray.groupie.GroupAdapter
@@ -64,6 +65,7 @@ class ComicDetailFragment: BaseFragment<FragmentComicDetailBinding>() {
     private fun updateData(characterData: List<Character>?) {
         characterGroupAdapter.apply {
             clear()
+            add(ImageItem(args.comicSeriesThumbnail))
             add(HeaderItem(resources.getString(R.string.character_detail_header)))
 
             val section = Section()

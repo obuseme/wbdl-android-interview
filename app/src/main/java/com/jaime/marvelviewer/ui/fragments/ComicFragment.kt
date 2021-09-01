@@ -91,11 +91,16 @@ class ComicFragment: BaseFragment<FragmentComicBinding>() {
         // Set click listener to transition to detail screen
         comicGroupAdapter.setOnItemClickListener { item , view ->
             // Get comic item unique ID and pass as NavArg, id will be needed for detail API
-            val comicItem = item as? ComicItem
-            val comicId = comicItem?.comic?.id ?: 0
-            val comicTitle = comicItem?.comic?.title ?: ""
+            val comic = (item as? ComicItem)?.comic
+            val comicId = comic?.id ?: 0
+            val comicTitle = comic?.title ?: ""
+            val thumbnail = comic?.thumbnail ?: ""
             findNavController().navigate(
-                ComicFragmentDirections.actionComicFragmentToComicDetailFragment(comicId, comicTitle)
+                ComicFragmentDirections.actionComicFragmentToComicDetailFragment(
+                        comicId,
+                        comicTitle,
+                        thumbnail
+                )
             )
         }
 

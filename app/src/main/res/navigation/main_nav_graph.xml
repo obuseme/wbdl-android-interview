@@ -33,6 +33,10 @@
             android:name="comicTitle"
             app:argType="string"
             android:defaultValue="" />
+        <argument
+            android:name="comicSeriesThumbnail"
+            app:argType="string"
+            android:defaultValue="" />
     </fragment>
 
 </navigation>
