@@ -27,30 +27,29 @@ class ComicItem(private val comic: Comic): BindableItem<ComicItemBinding>() {
     }
 
     /**
-     * Bind the TextView text property to the [Comic] data
+     * Bind the multiple TextView text properties to the [Comic] data class passed in
+     * Use Root Resources to get strings from strings.xmlk
      * @param viewBinding the reference to the recyclerview item view
      */
     private fun bindTextViews(viewBinding: ComicItemBinding) {
+        val resources = viewBinding.root.resources
+
         viewBinding.textViewComicItemTitle.text = comic.title
 
         val comicsAvailable = comic.available.toString()
-        with(viewBinding.textViewComicItemNumber) {
-            text = String.format(this.text.toString(), comicsAvailable)
-        }
+        viewBinding.textViewComicItemNumber.text =
+            String.format(resources.getString(R.string.comic_item_number_of_comics), comicsAvailable)
 
         val startYear = (comic.startYear ?: 0).toString().toComicYear()
-        with(viewBinding.textViewComicStartDate) {
-            text = String.format(this.text.toString(), startYear)
-        }
+        viewBinding.textViewComicStartDate.text =
+            String.format(resources.getString(R.string.comic_item_start_date), startYear)
 
         val endYear = (comic.endYear ?: 0).toString().toComicYear()
-        with(viewBinding.textViewComicEndDate) {
-            text = String.format(this.text.toString(), endYear)
-        }
+        viewBinding.textViewComicEndDate.text =
+            String.format(resources.getString(R.string.comic_item_end_date), endYear)
 
         val rating = comic.rating?.toRating()
-        with(viewBinding.textViewComicRating) {
-            text = String.format(this.text.toString(), rating)
-        }
+        viewBinding.textViewComicRating.text =
+            String.format(resources.getString(R.string.comic_item_rated), rating)
     }
 }
