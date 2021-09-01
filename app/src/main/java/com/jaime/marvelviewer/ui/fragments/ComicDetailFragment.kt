@@ -56,7 +56,6 @@ class ComicDetailFragment: BaseFragment<FragmentComicDetailBinding>() {
                 }
             }
         }
-
     }
 
     /**
@@ -66,6 +65,31 @@ class ComicDetailFragment: BaseFragment<FragmentComicDetailBinding>() {
         characterGroupAdapter.apply {
             clear()
             add(ImageItem(args.comicSeriesThumbnail))
+        }
+
+        if(characterData?.isEmpty() == true) {
+            noCharacters()
+        }
+        else {
+            populateCharacters(characterData)
+        }
+    }
+
+    /**
+     * Inform recyclerview there are no characters therefore display empty message
+     */
+    private fun noCharacters() {
+        characterGroupAdapter.apply {
+            add(HeaderItem(resources.getString(R.string.character_detail_no_characters)))
+        }
+    }
+
+    /**
+     * Populate characters in recyclerview
+     * @param characterData the list of characters from the API
+     */
+    private fun populateCharacters(characterData: List<Character>?) {
+        characterGroupAdapter.apply {
             add(HeaderItem(resources.getString(R.string.character_detail_header)))
 
             val section = Section()

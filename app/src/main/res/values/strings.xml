@@ -7,6 +7,7 @@
     <string name="series_item_rated">Rated: %s</string>
 
     <string name="character_detail_header">Characters</string>
+    <string name="character_detail_no_characters">No Characters found</string>
 
     <!-- Error Messages -->
     <string name="error_db_null_or_empty">Unable to read from DB or DB is empty</string>
