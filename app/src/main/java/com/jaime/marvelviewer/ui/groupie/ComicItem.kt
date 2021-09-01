@@ -9,7 +9,7 @@ import com.jaime.marvelviewer.util.Util.toComicYear
 import com.jaime.marvelviewer.util.Util.toRating
 import com.xwray.groupie.viewbinding.BindableItem
 
-class ComicItem(private val comic: Comic): BindableItem<ComicItemBinding>() {
+class ComicItem(val comic: Comic): BindableItem<ComicItemBinding>() {
     override fun getLayout(): Int = R.layout.comic_item
 
     override fun initializeViewBinding(view: View): ComicItemBinding =

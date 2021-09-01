@@ -8,7 +8,7 @@
 
     <fragment
         android:id="@+id/comicFragment"
-        android:name="com.jaime.marvelviewer.ui.ComicFragment"
+        android:name="com.jaime.marvelviewer.ui.fragments.ComicFragment"
         android:label="ComicFragment"
         tools:layout="@layout/fragment_comic">
         <action
@@ -22,8 +22,13 @@
 
     <fragment
         android:id="@+id/comicDetailFragment"
-        android:name="com.jaime.marvelviewer.ui.ComicDetailFragment"
+        android:name="com.jaime.marvelviewer.ui.fragments.ComicDetailFragment"
         android:label="ComicDetailFragment"
-        tools:layout="@layout/fragment_comic_detail"/>
+        tools:layout="@layout/fragment_comic_detail">
+        <argument
+            android:name="comicId"
+            app:argType="integer"
+            android:defaultValue="0" />
+    </fragment>
 
 </navigation>

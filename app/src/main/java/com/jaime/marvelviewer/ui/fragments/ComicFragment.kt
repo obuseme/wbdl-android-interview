@@ -1,16 +1,15 @@
-package com.jaime.marvelviewer.ui
+package com.jaime.marvelviewer.ui.fragments
 
-import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.jaime.marvelviewer.R
 import com.jaime.marvelviewer.databinding.FragmentComicBinding
 import com.jaime.marvelviewer.db.Comic
+import com.jaime.marvelviewer.ui.MarvelSeriesViewModel
 import com.jaime.marvelviewer.ui.groupie.ComicItem
 import com.jaime.marvelviewer.util.ErrorCode
 import com.jaime.marvelviewer.util.Status
@@ -20,34 +19,17 @@ import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import org.koin.java.KoinJavaComponent.inject
 
-
-class ComicFragment: Fragment() {
-    private var _binding: FragmentComicBinding? = null
-    private val binding get() = _binding!!
-
+class ComicFragment: BaseFragment<FragmentComicBinding>() {
     private val viewModel: MarvelSeriesViewModel by inject(MarvelSeriesViewModel::class.java)
     private val comicGroupAdapter = GroupAdapter<GroupieViewHolder>()
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        _binding = FragmentComicBinding.inflate(inflater, container, false)
-        val view = binding.root
-        return view
-    }
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentComicBinding
+        get() = FragmentComicBinding::inflate
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun initOnViewCreated() {
         initObserver()
         initSwipeRefreshLayout()
         initRecyclerView()
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 
     /**
@@ -106,9 +88,12 @@ class ComicFragment: Fragment() {
      */
     private fun initRecyclerView() {
         // Set click listener to transition to detail screen
-        comicGroupAdapter.setOnItemClickListener { _, _ ->
+        comicGroupAdapter.setOnItemClickListener { item , view ->
+            // Get comic item unique ID and pass as NavArg, id will be needed for detail API
+            val comicItem = item as? ComicItem
+            val comicId = comicItem?.comic?.id ?: 0
             findNavController().navigate(
-                ComicFragmentDirections.actionComicFragmentToComicDetailFragment()
+                ComicFragmentDirections.actionComicFragmentToComicDetailFragment(comicId)
             )
         }
 
