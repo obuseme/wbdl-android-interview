@@ -11,6 +11,7 @@ import com.jaime.marvelviewer.model.character.Character
 import com.jaime.marvelviewer.ui.CharacterViewModel
 import com.jaime.marvelviewer.ui.groupie.CharacterItem
 import com.jaime.marvelviewer.ui.groupie.HeaderItem
+import com.jaime.marvelviewer.util.Constants.COMIC_DETAIL_SPAN_SIZE
 import com.jaime.marvelviewer.util.Status
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
@@ -79,7 +80,7 @@ class ComicDetailFragment: BaseFragment<FragmentComicDetailBinding>() {
      * Initialise RecyclerView Properties
      */
     private fun initRecyclerView() {
-        characterGroupAdapter.spanCount = 2
+        characterGroupAdapter.spanCount = COMIC_DETAIL_SPAN_SIZE
         binding.recyclerViewComicDetails.apply {
             layoutManager = GridLayoutManager(context, characterGroupAdapter.spanCount).apply {
                 spanSizeLookup = characterGroupAdapter.spanSizeLookup
