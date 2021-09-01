@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.jaime.marvelviewer.R
 import com.jaime.marvelviewer.databinding.FragmentComicDetailBinding
 import com.jaime.marvelviewer.model.character.Character
-import com.jaime.marvelviewer.ui.CharacterViewModel
+import com.jaime.marvelviewer.ui.DetailViewModel
 import com.jaime.marvelviewer.ui.groupie.CharacterItem
 import com.jaime.marvelviewer.ui.groupie.HeaderItem
 import com.jaime.marvelviewer.ui.groupie.ImageItem
@@ -19,9 +19,9 @@ import com.xwray.groupie.GroupieViewHolder
 import com.xwray.groupie.Section
 import org.koin.java.KoinJavaComponent.inject
 
-class ComicDetailFragment: BaseFragment<FragmentComicDetailBinding>() {
-    private val viewModel: CharacterViewModel by inject(CharacterViewModel::class.java)
-    private val args: ComicDetailFragmentArgs by navArgs()
+class DetailFragment: BaseFragment<FragmentComicDetailBinding>() {
+    private val viewModel: DetailViewModel by inject(DetailViewModel::class.java)
+    private val args: DetailFragmentArgs by navArgs()
 
     private val characterGroupAdapter = GroupAdapter<GroupieViewHolder>()
 
@@ -36,6 +36,9 @@ class ComicDetailFragment: BaseFragment<FragmentComicDetailBinding>() {
         // Request Character
         val comicId = args.comicId.toString()
         viewModel.getCharacterData(comicId)
+
+        // Request Comics
+        viewModel.getComicData(comicId)
     }
 
     /**

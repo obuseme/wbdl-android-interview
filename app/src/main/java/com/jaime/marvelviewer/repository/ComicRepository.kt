@@ -1,19 +1,19 @@
 package com.jaime.marvelviewer.repository
 
 import com.jaime.marvelviewer.api.MarvelAPI
-import com.jaime.marvelviewer.model.character.Character
+import com.jaime.marvelviewer.model.comic.Comic
 import com.jaime.marvelviewer.util.*
 
-class CharacterRepository(private val marvelAPI: MarvelAPI) {
+class ComicRepository(private val marvelAPI: MarvelAPI) {
     /**
      */
-    suspend fun requestCharacterData(id: String): Resource<List<Character>> {
+    suspend fun requestComicData(id: String): Resource<List<Comic>> {
         return try {
             // API timestamp as per requirements
             val timeStamp = Util.timeStamp
 
             // Make response to API
-            val response = marvelAPI.getCharacter(
+            val response = marvelAPI.getComic(
                 seriesId = id,
                 apiKey = Constants.API_KEY,
                 timeStamp = timeStamp,

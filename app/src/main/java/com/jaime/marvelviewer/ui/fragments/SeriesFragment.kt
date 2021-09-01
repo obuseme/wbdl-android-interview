@@ -96,7 +96,7 @@ class SeriesFragment: BaseFragment<FragmentSeriesBinding>() {
             val comicTitle = comic?.title ?: ""
             val thumbnail = comic?.thumbnail ?: ""
             findNavController().navigate(
-                SeriesFragmentDirections.actionSeriesFragmentToComicDetailFragment(
+                SeriesFragmentDirections.actionSeriesFragmentToDetailFragment(
                         comicId,
                         comicTitle,
                         thumbnail

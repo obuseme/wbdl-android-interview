@@ -1,6 +1,7 @@
 package com.jaime.marvelviewer.api
 
 import com.jaime.marvelviewer.model.character.CharacterAPIResponse
+import com.jaime.marvelviewer.model.comic.ComicAPIResponse
 import com.jaime.marvelviewer.model.series.SeriesAPIResponse
 import retrofit2.Response
 import retrofit2.http.GET
@@ -15,11 +16,19 @@ interface MarvelAPI {
         @Query("hash") hash: String
     ): Response<SeriesAPIResponse>
 
-    @GET("v1/public/series/{characterId}/characters")
+    @GET("v1/public/series/{seriesId}/characters")
     suspend fun getCharacter(
-        @Path("characterId") characterId: String,
+        @Path("seriesId") seriesId: String,
         @Query("apikey") apiKey: String,
         @Query("ts") timeStamp: String,
         @Query("hash") hash: String
     ): Response<CharacterAPIResponse>
+
+    @GET("v1/public/comic/{seriesId}/comics")
+    suspend fun getComic(
+            @Path("seriesId") seriesId: String,
+            @Query("apikey") apiKey: String,
+            @Query("ts") timeStamp: String,
+            @Query("hash") hash: String
+    ): Response<ComicAPIResponse>
 }

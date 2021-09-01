@@ -12,8 +12,8 @@
         android:label="SeriesFragment"
         tools:layout="@layout/fragment_series">
         <action
-            android:id="@+id/action_seriesFragment_to_comicDetailFragment"
-            app:destination="@id/comicDetailFragment"
+            android:id="@+id/action_seriesFragment_to_DetailFragment"
+            app:destination="@id/detailFragment"
             app:enterAnim="@anim/anim_slide_in_left"
             app:exitAnim="@anim/anim_slide_out_left"
             app:popEnterAnim="@anim/anim_slide_in_right"
@@ -21,9 +21,9 @@
     </fragment>
 
     <fragment
-        android:id="@+id/comicDetailFragment"
-        android:name="com.jaime.marvelviewer.ui.fragments.ComicDetailFragment"
-        android:label="ComicDetailFragment"
+        android:id="@+id/detailFragment"
+        android:name="com.jaime.marvelviewer.ui.fragments.DetailFragment"
+        android:label="DetailFragment"
         tools:layout="@layout/fragment_comic_detail">
         <argument
             android:name="comicId"
