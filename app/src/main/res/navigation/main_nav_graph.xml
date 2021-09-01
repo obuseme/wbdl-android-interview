@@ -10,6 +10,20 @@
         android:id="@+id/comicFragment"
         android:name="com.jaime.marvelviewer.ui.ComicFragment"
         android:label="ComicFragment"
-        tools:layout="@layout/fragment_comic"/>
+        tools:layout="@layout/fragment_comic">
+        <action
+            android:id="@+id/action_comicFragment_to_comicDetailFragment"
+            app:destination="@id/comicDetailFragment"
+            app:enterAnim="@anim/anim_slide_in_left"
+            app:exitAnim="@anim/anim_slide_out_left"
+            app:popEnterAnim="@anim/anim_slide_in_right"
+            app:popExitAnim="@anim/anim_slide_out_right"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/comicDetailFragment"
+        android:name="com.jaime.marvelviewer.ui.ComicDetailFragment"
+        android:label="ComicDetailFragment"
+        tools:layout="@layout/fragment_comic_detail"/>
 
 </navigation>

@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.jaime.marvelviewer.R
 import com.jaime.marvelviewer.databinding.FragmentComicBinding
@@ -74,12 +75,13 @@ class ComicFragment: Fragment() {
      * Update the recyclerview data
      */
     private fun updateData(comicData: List<Comic>?) {
-        comicGroupAdapter.clear()
-        comicData?.forEach {
-            comicGroupAdapter.add(
-                ComicItem(it)
-            )
+        comicGroupAdapter.apply {
+            clear()
+            comicData?.forEach {
+                add(ComicItem(it))
+            }
         }
+
     }
 
     /**
@@ -103,6 +105,13 @@ class ComicFragment: Fragment() {
      * Initialise RecyclerView Properties
      */
     private fun initRecyclerView() {
+        // Set click listener to transition to detail screen
+        comicGroupAdapter.setOnItemClickListener { _, _ ->
+            findNavController().navigate(
+                ComicFragmentDirections.actionComicFragmentToComicDetailFragment()
+            )
+        }
+
         binding.recyclerViewComicItems.apply {
             layoutManager = LinearLayoutManager(context)
             setDivider(R.drawable.recycler_view_divider)
