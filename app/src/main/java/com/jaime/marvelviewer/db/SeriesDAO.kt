@@ -3,17 +3,17 @@ package com.jaime.marvelviewer.db
 import androidx.room.*
 
 @Dao
-interface ComicDAO {
+interface SeriesDAO {
     /**
      * TODO: Requirements specify 'The results should be sorted by start year.' My interpretation is this means 'chronologically'
      * Change query to 'DESC' if this is incorrect
      */
-    @Query("SELECT * FROM Comic ORDER BY start_year ASC")
-    fun getAll(): List<Comic>
+    @Query("SELECT * FROM Series ORDER BY start_year ASC")
+    fun getAll(): List<Series>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll(comics: List<Comic>)
+    fun insertAll(series: List<Series>)
 
-    @Query("DELETE FROM Comic")
+    @Query("DELETE FROM Series")
     fun deleteAll()
 }

@@ -2,8 +2,8 @@ package com.jaime.marvelviewer.di
 
 import android.app.Application
 import androidx.room.Room
-import com.jaime.marvelviewer.db.ComicDAO
 import com.jaime.marvelviewer.db.MarvelDatabase
+import com.jaime.marvelviewer.db.SeriesDAO
 import com.jaime.marvelviewer.util.Constants.DATABASE_NAME
 import org.koin.android.ext.koin.androidApplication
 import org.koin.dsl.module
@@ -15,10 +15,10 @@ val databaseModule = module {
             .build()
     }
 
-    fun provideComicDao(database: MarvelDatabase): ComicDAO {
-        return  database.comicDao()
+    fun provideSeriesDao(database: MarvelDatabase): SeriesDAO {
+        return  database.seriesDAO()
     }
 
     single { provideDatabase(androidApplication()) }
-    single { provideComicDao(get()) }
+    single { provideSeriesDao(get()) }
 }

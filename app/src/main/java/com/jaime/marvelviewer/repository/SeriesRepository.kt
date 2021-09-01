@@ -1,21 +1,21 @@
 package com.jaime.marvelviewer.repository
 
 import com.jaime.marvelviewer.api.MarvelAPI
-import com.jaime.marvelviewer.db.Comic
-import com.jaime.marvelviewer.db.ComicDAO
+import com.jaime.marvelviewer.db.Series
+import com.jaime.marvelviewer.db.SeriesDAO
 import com.jaime.marvelviewer.util.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-class ComicRepository(
+class SeriesRepository(
     private val marvelAPI: MarvelAPI,
-    private val comicDAO: ComicDAO) {
+    private val seriesDAO: SeriesDAO) {
 
     /**
-     * Request comic data from API
-     * @return a [Resource] with the result of the comic data within a list
+     * Request series data from API
+     * @return a [Resource] with the result of the series data within a list
      */
-    suspend fun requestComicData(): Resource<List<Comic>> {
+    suspend fun requestSeriesData(): Resource<List<Series>> {
         return try {
             // API timestamp as per requirements
             val timeStamp = Util.timeStamp
@@ -31,35 +31,35 @@ class ComicRepository(
 
                 // If the response has a body containing data, store it in the DB and return the cached results
                 response.body()?.let {
-                    val results = ComicConverter.convertToDBComicList(it.data)
+                    val results = SeriesConverter.convertToDBSeriesList(it.data)
                     withContext(Dispatchers.IO) {
-                        comicDAO.deleteAll()
-                        comicDAO.insertAll(results)
+                        seriesDAO.deleteAll()
+                        seriesDAO.insertAll(results)
                     }
-                    return getComicDataFromDB(true)
+                    return getSeriesDataFromDB(true)
                 }
                 return Resource.error(ErrorCode.NETWORK_ERROR, null)
             }
             else {
-               getComicDataFromDB(false)
+                getSeriesDataFromDB(false)
             }
 
         } catch (e: Exception) {
-            getComicDataFromDB(false)
+            getSeriesDataFromDB(false)
         }
     }
 
     /**
-     * Make a request to get the Comics from the local DB
+     * Make a request to get the seriess from the local DB
      * @param apiResponseSuccessful a boolean flag to check whether an error message is needed to be passed back or not
      * @return a [Resource] containing the result from the local DB
      */
-    private suspend fun getComicDataFromDB(apiResponseSuccessful: Boolean): Resource<List<Comic>> {
-        val comicData = getDBComics()
-        if(apiResponseSuccessful) return Resource.success(data = comicData)
+    private suspend fun getSeriesDataFromDB(apiResponseSuccessful: Boolean): Resource<List<Series>> {
+        val seriesData = getDBSeries()
+        if(apiResponseSuccessful) return Resource.success(data = seriesData)
 
-        return if(comicData.isNotEmpty()) {
-            return Resource.success(ErrorCode.DB_USING_CACHED_DATA, comicData)
+        return if(seriesData.isNotEmpty()) {
+            return Resource.success(ErrorCode.DB_USING_CACHED_DATA, seriesData)
         }
         else {
             Resource.error(ErrorCode.DB_EMPTY_OR_NULL, null)
@@ -67,12 +67,12 @@ class ComicRepository(
     }
 
     /**
-     * Get comic data from the DB
-     * @return a list of Comics from the DB
+     * Get series data from the DB
+     * @return a list of series from the DB
      */
-    private suspend fun getDBComics(): List<Comic> {
+    private suspend fun getDBSeries(): List<Series> {
         return withContext(Dispatchers.IO) {
-            comicDAO.getAll()
+            seriesDAO.getAll()
         }
     }
 }

@@ -29,11 +29,11 @@ class CharacterRepository(private val marvelAPI: MarvelAPI) {
                 return Resource.error(ErrorCode.NETWORK_ERROR, null)
             }
             else {
-                return Resource.error(ErrorCode.NETWORK_ERROR, null)
+                Resource.error(ErrorCode.NETWORK_ERROR, null)
             }
 
         } catch (e: Exception) {
-            return Resource.error(ErrorCode.NETWORK_ERROR, null)
+            Resource.error(ErrorCode.NETWORK_ERROR, null)
         }
     }
 }

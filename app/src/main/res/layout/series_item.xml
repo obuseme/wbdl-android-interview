@@ -32,7 +32,7 @@
         style="@style/Marvel.Text"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="@string/comic_item_number_of_comics"
+        android:text="@string/series_item_number_of_comics"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewComicItemTitle" />
@@ -42,7 +42,7 @@
         style="@style/Marvel.Text"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="@string/comic_item_start_date"
+        android:text="@string/series_item_start_date"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewComicItemNumber" />
@@ -53,7 +53,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:paddingBottom="@dimen/unit_half"
-        android:text="@string/comic_item_end_date"
+        android:text="@string/series_item_end_date"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewComicStartDate" />
@@ -64,7 +64,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:paddingBottom="@dimen/unit_half"
-        android:text="@string/comic_item_rated"
+        android:text="@string/series_item_rated"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewComicEndDate" />

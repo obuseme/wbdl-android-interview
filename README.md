@@ -18,7 +18,7 @@ To pass the test, the app has to include the following:
 * For each comic series you have to display **at least**:
 	* Title
 	* Thumbnail
-	* Number of comics
+	* Number of series
 	* Start and end date
 * The results should be sorted by start year.
 
@@ -34,7 +34,7 @@ To pass the test, the app has to include the following:
 		* Title
 		* Thumbnail
 		* Issue number
-* Note: The detail screen requires two API calls - one for the first page of comics in the series, and one for the first page of characters in the series.  The UI of the screen should remain in a loading state until both API requests complete.
+* Note: The detail screen requires two API calls - one for the first page of series in the series, and one for the first page of characters in the series.  The UI of the screen should remain in a loading state until both API requests complete.
 
 ## Requirements
 * Use min API 21

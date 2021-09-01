@@ -7,10 +7,10 @@ import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.jaime.marvelviewer.R
-import com.jaime.marvelviewer.databinding.FragmentComicBinding
-import com.jaime.marvelviewer.db.Comic
-import com.jaime.marvelviewer.ui.ComicViewModel
-import com.jaime.marvelviewer.ui.groupie.ComicItem
+import com.jaime.marvelviewer.databinding.FragmentSeriesBinding
+import com.jaime.marvelviewer.db.Series
+import com.jaime.marvelviewer.ui.SeriesViewModel
+import com.jaime.marvelviewer.ui.groupie.SeriesItem
 import com.jaime.marvelviewer.util.ErrorCode
 import com.jaime.marvelviewer.util.Status
 import com.jaime.marvelviewer.util.Util
@@ -19,12 +19,12 @@ import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import org.koin.java.KoinJavaComponent.inject
 
-class ComicFragment: BaseFragment<FragmentComicBinding>() {
-    private val viewModel: ComicViewModel by inject(ComicViewModel::class.java)
+class SeriesFragment: BaseFragment<FragmentSeriesBinding>() {
+    private val viewModel: SeriesViewModel by inject(SeriesViewModel::class.java)
     private val comicGroupAdapter = GroupAdapter<GroupieViewHolder>()
 
-    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentComicBinding
-        get() = FragmentComicBinding::inflate
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentSeriesBinding
+        get() = FragmentSeriesBinding::inflate
 
     override fun initOnViewCreated() {
         initActionBar(resources.getString(R.string.app_name), false)
@@ -37,18 +37,18 @@ class ComicFragment: BaseFragment<FragmentComicBinding>() {
      * Initialise Observer LiveData from ViewModel
      */
     private fun initObserver() {
-        viewModel.comicData.observe(viewLifecycleOwner) {
+        viewModel.seriesData.observe(viewLifecycleOwner) {
             toastMessage(it.errorCode)
             when(it.status) {
                 Status.SUCCESS -> {
                     updateData(it.data)
-                    binding.progressBarLoadingComics.visibility = View.GONE
+                    binding.progressBarLoadingSeries.visibility = View.GONE
                 }
                 Status.ERROR -> {
-                    binding.progressBarLoadingComics.visibility = View.GONE
+                    binding.progressBarLoadingSeries.visibility = View.GONE
                 }
                 Status.LOADING -> {
-                    binding.progressBarLoadingComics.visibility = View.VISIBLE
+                    binding.progressBarLoadingSeries.visibility = View.VISIBLE
                 }
             }
         }
@@ -57,11 +57,11 @@ class ComicFragment: BaseFragment<FragmentComicBinding>() {
     /**
      * Update the recyclerview data
      */
-    private fun updateData(comicData: List<Comic>?) {
+    private fun updateData(seriesData: List<Series>?) {
         comicGroupAdapter.apply {
             clear()
-            comicData?.forEach {
-                add(ComicItem(it))
+            seriesData?.forEach {
+                add(SeriesItem(it))
             }
         }
 
@@ -89,14 +89,14 @@ class ComicFragment: BaseFragment<FragmentComicBinding>() {
      */
     private fun initRecyclerView() {
         // Set click listener to transition to detail screen
-        comicGroupAdapter.setOnItemClickListener { item , view ->
+        comicGroupAdapter.setOnItemClickListener { item, _ ->
             // Get comic item unique ID and pass as NavArg, id will be needed for detail API
-            val comic = (item as? ComicItem)?.comic
+            val comic = (item as? SeriesItem)?.series
             val comicId = comic?.id ?: 0
             val comicTitle = comic?.title ?: ""
             val thumbnail = comic?.thumbnail ?: ""
             findNavController().navigate(
-                ComicFragmentDirections.actionComicFragmentToComicDetailFragment(
+                SeriesFragmentDirections.actionSeriesFragmentToComicDetailFragment(
                         comicId,
                         comicTitle,
                         thumbnail
@@ -104,7 +104,7 @@ class ComicFragment: BaseFragment<FragmentComicBinding>() {
             )
         }
 
-        binding.recyclerViewComicItems.apply {
+        binding.recyclerViewSeriesItems.apply {
             layoutManager = LinearLayoutManager(context)
             setDivider(R.drawable.recycler_view_divider)
             adapter = comicGroupAdapter

@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.jaime.marvelviewer.db.Comic
 import com.jaime.marvelviewer.model.character.Character
 import com.jaime.marvelviewer.repository.CharacterRepository
 import com.jaime.marvelviewer.util.Resource
