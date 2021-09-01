@@ -25,6 +25,12 @@ class CharacterItem(private val character: Character): BindableItem<CharacterIte
     }
 
     /**
+     * Ensure item takes up half the row
+     * @return half the span of the entire view
+     */
+    override fun getSpanSize(spanCount: Int, position: Int) = spanCount / 2
+
+    /**
      * Bind the multiple TextView text properties to the [Character] data class passed in
      * Use Root Resources to get strings from strings.xml
      * @param viewBinding the reference to the recyclerview item view

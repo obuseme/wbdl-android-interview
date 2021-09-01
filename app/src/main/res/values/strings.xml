@@ -6,6 +6,8 @@
     <string name="comic_item_end_date">End Date: %s</string>
     <string name="comic_item_rated">Rated: %s</string>
 
+    <string name="character_detail_header">Characters</string>
+
     <!-- Error Messages -->
     <string name="error_db_null_or_empty">Unable to read from DB or DB is empty</string>
     <string name="error_using_cached_data">Unable to connect to API, using cached data</string>

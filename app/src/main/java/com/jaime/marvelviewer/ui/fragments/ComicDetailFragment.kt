@@ -5,13 +5,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
+import com.jaime.marvelviewer.R
 import com.jaime.marvelviewer.databinding.FragmentComicDetailBinding
 import com.jaime.marvelviewer.model.character.Character
 import com.jaime.marvelviewer.ui.CharacterViewModel
 import com.jaime.marvelviewer.ui.groupie.CharacterItem
+import com.jaime.marvelviewer.ui.groupie.HeaderItem
 import com.jaime.marvelviewer.util.Status
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
+import com.xwray.groupie.Section
 import org.koin.java.KoinJavaComponent.inject
 
 class ComicDetailFragment: BaseFragment<FragmentComicDetailBinding>() {
@@ -55,24 +58,32 @@ class ComicDetailFragment: BaseFragment<FragmentComicDetailBinding>() {
     }
 
     /**
-     * Update the recyclerview data
+     * Update the recyclerview character data
      */
     private fun updateData(characterData: List<Character>?) {
         characterGroupAdapter.apply {
             clear()
-            characterData?.forEach {
-                add(CharacterItem(it))
-            }
-        }
+            add(HeaderItem(resources.getString(R.string.character_detail_header)))
 
+            val section = Section()
+            section.apply {
+                characterData?.forEach {
+                    add(CharacterItem(it))
+                }
+            }
+            add(section)
+        }
     }
 
     /**
      * Initialise RecyclerView Properties
      */
     private fun initRecyclerView() {
+        characterGroupAdapter.spanCount = 2
         binding.recyclerViewComicDetails.apply {
-            layoutManager = GridLayoutManager(context, 2)
+            layoutManager = GridLayoutManager(context, characterGroupAdapter.spanCount).apply {
+                spanSizeLookup = characterGroupAdapter.spanSizeLookup
+            }
             adapter = characterGroupAdapter
         }
     }
