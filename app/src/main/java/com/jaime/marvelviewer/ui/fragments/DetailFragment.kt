@@ -32,10 +32,8 @@ class DetailFragment: BaseFragment<FragmentComicDetailBinding>() {
         initActionBar(args.comicTitle, true)
         initObserver()
         initRecyclerView()
-
-        // Request Series Details
-        val comicId = args.comicId.toString()
-        viewModel.requestSeriesDetails(comicId)
+        initSwipeRefresh()
+        requestSeriesDetails()
     }
 
     /**
@@ -61,12 +59,32 @@ class DetailFragment: BaseFragment<FragmentComicDetailBinding>() {
      */
     private fun initRecyclerView() {
         characterGroupAdapter.spanCount = COMIC_DETAIL_SPAN_SIZE
-        binding.recyclerViewComicDetails.apply {
+        binding.recyclerViewDetails.apply {
             layoutManager = GridLayoutManager(context, characterGroupAdapter.spanCount).apply {
                 spanSizeLookup = characterGroupAdapter.spanSizeLookup
             }
             adapter = characterGroupAdapter
         }
+    }
+
+    /**
+     * Initialise Swipe Refresh Widget
+     */
+    private fun initSwipeRefresh() {
+        binding.swipeToRefreshDetails.apply {
+            setOnRefreshListener {
+                isRefreshing = false
+                requestSeriesDetails()
+            }
+        }
+    }
+
+    /**
+     * Make request to ViewModel for data
+     */
+    private fun requestSeriesDetails() {
+        val comicId = args.comicId.toString()
+        viewModel.requestSeriesDetails(comicId)
     }
 
     /**

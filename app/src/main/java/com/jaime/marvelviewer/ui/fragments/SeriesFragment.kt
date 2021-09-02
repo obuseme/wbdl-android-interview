@@ -28,7 +28,7 @@ class SeriesFragment: BaseFragment<FragmentSeriesBinding>() {
     override fun initOnViewCreated() {
         initActionBar(resources.getString(R.string.app_name), false)
         initObserver()
-        initSwipeRefreshLayout()
+        initSwipeRefresh()
         initRecyclerView()
     }
 
@@ -91,12 +91,14 @@ class SeriesFragment: BaseFragment<FragmentSeriesBinding>() {
     }
 
     /**
-     * Initialise Swipe Refresh Properties
+     * Initialise Swipe Refresh Widget
      */
-    private fun initSwipeRefreshLayout() {
-        binding.swipeToRefresh.setOnRefreshListener {
-            binding.swipeToRefresh.isRefreshing = false
-            viewModel.getSeriesData()
+    private fun initSwipeRefresh() {
+        binding.swipeToRefreshSeries.apply {
+            setOnRefreshListener {
+                isRefreshing = false
+                viewModel.getSeriesData()
+            }
         }
     }
 }
