@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import com.jaime.marvelviewer.util.Constants.SPLASH_SCREEN_DELAY
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -16,7 +17,7 @@ class SplashActivity : AppCompatActivity() {
         setContentView(R.layout.activity_splash)
 
         lifecycleScope.launch {
-            delay(3000)
+            delay(SPLASH_SCREEN_DELAY)
             val mainIntent = Intent(this@SplashActivity, MainActivity::class.java)
             startActivity(mainIntent)
         }

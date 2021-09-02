@@ -8,4 +8,6 @@ object Constants {
     const val DATABASE_NAME = "Marvel_Database"
 
     const val COMIC_DETAIL_SPAN_SIZE = 2
+
+    const val SPLASH_SCREEN_DELAY = 3000
 }
