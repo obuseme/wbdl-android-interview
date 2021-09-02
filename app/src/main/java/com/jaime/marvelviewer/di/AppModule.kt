@@ -2,6 +2,7 @@ package com.jaime.marvelviewer.di
 
 import com.jaime.marvelviewer.api.MarvelAPI
 import com.jaime.marvelviewer.api.MarvelRetrofitBuilder
+import com.jaime.marvelviewer.ui.DataFactory
 import org.koin.dsl.module
 
 val appModule = module {
@@ -10,6 +11,9 @@ val appModule = module {
     }
     single {
         provideMarvelService(get())
+    }
+    single {
+        DataFactory()
     }
 }
 

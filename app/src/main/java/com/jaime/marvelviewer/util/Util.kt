@@ -81,15 +81,18 @@ object Util {
      * @param errorCode the [ErrorCode] value to verify against a string
      * @return the string error message
      */
-    fun getStringFromErrorCode(resources: Resources, errorCode: ErrorCode): String {
+    fun getStringFromErrorCode(resources: Resources, errorCode: ErrorCode?): String? {
         return try {
             return when (errorCode) {
                 ErrorCode.DB_EMPTY_OR_NULL -> resources.getString(R.string.error_db_null_or_empty)
                 ErrorCode.DB_USING_CACHED_DATA -> resources.getString(R.string.error_using_cached_data)
                 ErrorCode.NETWORK_ERROR -> resources.getString(R.string.error_generic)
+                else -> null
             }
         }
-        catch (e: Exception) { "" }
+        catch (e: Exception) {
+            null
+        }
     }
 
     /**

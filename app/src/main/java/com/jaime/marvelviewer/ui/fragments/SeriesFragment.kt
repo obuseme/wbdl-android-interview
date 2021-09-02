@@ -1,17 +1,16 @@
 package com.jaime.marvelviewer.ui.fragments
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.jaime.marvelviewer.R
 import com.jaime.marvelviewer.databinding.FragmentSeriesBinding
-import com.jaime.marvelviewer.db.Series
 import com.jaime.marvelviewer.ui.SeriesViewModel
 import com.jaime.marvelviewer.ui.groupie.SeriesItem
 import com.jaime.marvelviewer.util.ErrorCode
+import com.jaime.marvelviewer.util.Resource
 import com.jaime.marvelviewer.util.Status
 import com.jaime.marvelviewer.util.Util
 import com.jaime.marvelviewer.util.Util.setDivider
@@ -34,37 +33,35 @@ class SeriesFragment: BaseFragment<FragmentSeriesBinding>() {
     }
 
     /**
-     * Initialise Observer LiveData from ViewModel
+     * Initialise the Observer for LiveData from ViewModel
      */
     private fun initObserver() {
         viewModel.seriesData.observe(viewLifecycleOwner) {
-            toastMessage(it.errorCode)
+            binding.isLoading = (it.status == Status.LOADING)
             when(it.status) {
                 Status.SUCCESS -> {
-                    updateData(it.data)
-                    binding.progressBarLoadingSeries.visibility = View.GONE
+                    updateSeriesItems(it)
                 }
                 Status.ERROR -> {
-                    binding.progressBarLoadingSeries.visibility = View.GONE
+                    toastMessage(it.errorCode)
                 }
-                Status.LOADING -> {
-                    binding.progressBarLoadingSeries.visibility = View.VISIBLE
-                }
+                Status.LOADING -> { /* Covered by data binding */ }
             }
         }
     }
 
     /**
-     * Update the recyclerview data
+     * Update the recyclerview with the series items
+     * @param seriesItems the response from the ViewModel containing the series items and error code (if any)
      */
-    private fun updateData(seriesData: List<Series>?) {
+    private fun updateSeriesItems(seriesItems: Resource<List<SeriesItem>>) {
+        // Check if data comes back with 'using cached data' error code
+        toastMessage(seriesItems.errorCode)
+
         comicGroupAdapter.apply {
             clear()
-            seriesData?.forEach {
-                add(SeriesItem(it))
-            }
+            seriesItems.data?.let { addAll(it) }
         }
-
     }
 
     /**
@@ -72,15 +69,9 @@ class SeriesFragment: BaseFragment<FragmentSeriesBinding>() {
      * @param errorCode the unique error value
      */
     private fun toastMessage(errorCode: ErrorCode?) {
-        errorCode?.let {
-            val errorMessage = Util.getStringFromErrorCode(resources, errorCode)
-            if (errorMessage.isNotEmpty()) {
-                Toast.makeText(
-                    context,
-                    errorMessage,
-                    Toast.LENGTH_LONG
-                ).show()
-            }
+        val errorMessage = Util.getStringFromErrorCode(resources, errorCode)
+        errorMessage?.let {
+            Toast.makeText(context, it, Toast.LENGTH_LONG).show()
         }
     }
 
@@ -90,16 +81,15 @@ class SeriesFragment: BaseFragment<FragmentSeriesBinding>() {
     private fun initRecyclerView() {
         // Set click listener to transition to detail screen
         comicGroupAdapter.setOnItemClickListener { item, _ ->
-            // Get comic item unique ID and pass as NavArg, id will be needed for detail API
+            // Get comic item, id, title and thumbnail are required as nav args
             val comic = (item as? SeriesItem)?.series
-            val comicId = comic?.id ?: 0
-            val comicTitle = comic?.title ?: ""
-            val thumbnail = comic?.thumbnail ?: ""
+
+            // Navigate to detail screen
             findNavController().navigate(
                 SeriesFragmentDirections.actionSeriesFragmentToDetailFragment(
-                        comicId,
-                        comicTitle,
-                        thumbnail
+                    comic?.id ?: 0,
+                    comic?.title ?: "",
+                    comic?.thumbnail ?: ""
                 )
             )
         }
@@ -117,7 +107,7 @@ class SeriesFragment: BaseFragment<FragmentSeriesBinding>() {
     private fun initSwipeRefreshLayout() {
         binding.swipeToRefresh.setOnRefreshListener {
             binding.swipeToRefresh.isRefreshing = false
-            viewModel.getComicData()
+            viewModel.getSeriesData()
         }
     }
 }

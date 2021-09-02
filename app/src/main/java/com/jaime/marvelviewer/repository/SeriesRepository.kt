@@ -16,7 +16,6 @@ class SeriesRepository(
      * @return a [Resource] with the result of the series data within a list
      */
     suspend fun requestSeriesData(): Resource<List<Series>> {
-        return getSeriesDataFromDB(false)
         return try {
             // API timestamp as per requirements
             val timeStamp = Util.timeStamp
@@ -29,7 +28,6 @@ class SeriesRepository(
             )
 
             return if(response.isSuccessful) {
-
                 // If the response has a body containing data, store it in the DB and return the cached results
                 response.body()?.let {
                     val results = SeriesConverter.convertToDBSeriesList(it.data)

@@ -39,9 +39,9 @@ abstract class BaseFragment<VB: ViewBinding>: Fragment() {
 
     abstract fun initOnViewCreated()
 
-    fun initActionBar(title: String = "", showBack: Boolean = false) {
+    fun initActionBar(title: String = "", showBackButton: Boolean = false) {
         val supportActionBar = (activity as? AppCompatActivity)?.supportActionBar
         supportActionBar?.title = title
-        supportActionBar?.setDisplayHomeAsUpEnabled(showBack)
+        supportActionBar?.setDisplayHomeAsUpEnabled(showBackButton)
     }
 }

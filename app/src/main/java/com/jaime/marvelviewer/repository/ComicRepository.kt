@@ -21,8 +21,6 @@ class ComicRepository(private val marvelAPI: MarvelAPI) {
             )
 
             return if(response.isSuccessful) {
-
-                // If the response has a body containing data, store it in the DB and return the cached results
                 response.body()?.let {
                     return Resource.success(data = it.data.results)
                 }
