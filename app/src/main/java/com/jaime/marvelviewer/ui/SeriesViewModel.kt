@@ -24,10 +24,10 @@ class SeriesViewModel: ViewModel() {
     fun getSeriesData() {
         viewModelScope.launch {
             val response = repository.requestSeriesData()
-            val items = dataFactory.convertToSeriesItems(response.data)
+            val seriesItems = dataFactory.convertToSeriesItems(response.data)
 
             _seriesData.postValue(
-                Resource(response.status, items, response.errorCode)
+                Resource(response.status, seriesItems, response.errorCode)
             )
         }
     }

@@ -86,7 +86,8 @@ object Util {
             return when (errorCode) {
                 ErrorCode.DB_EMPTY_OR_NULL -> resources.getString(R.string.error_db_null_or_empty)
                 ErrorCode.DB_USING_CACHED_DATA -> resources.getString(R.string.error_using_cached_data)
-                ErrorCode.NETWORK_ERROR -> resources.getString(R.string.error_generic)
+                ErrorCode.NETWORK_ERROR -> resources.getString(R.string.error_network)
+                ErrorCode.ERROR_GENERIC -> resources.getString(R.string.error_generic)
                 else -> null
             }
         }

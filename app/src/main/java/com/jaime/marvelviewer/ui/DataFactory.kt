@@ -1,6 +1,10 @@
 package com.jaime.marvelviewer.ui
 
 import com.jaime.marvelviewer.db.Series
+import com.jaime.marvelviewer.model.character.Character
+import com.jaime.marvelviewer.model.comic.Comic
+import com.jaime.marvelviewer.ui.groupie.CharacterItem
+import com.jaime.marvelviewer.ui.groupie.ComicItem
 import com.jaime.marvelviewer.ui.groupie.SeriesItem
 
 /**
@@ -17,8 +21,40 @@ class DataFactory {
     fun convertToSeriesItems(seriesData: List<Series>?): List<SeriesItem>? {
         seriesData?.let {
             val items = mutableListOf<SeriesItem>()
-            seriesData.forEach {
-                items.add(SeriesItem(it))
+            it.forEach { series ->
+                items.add(SeriesItem(series))
+            }
+            return items
+        }
+        return null
+    }
+
+    /**
+     * Convert character data from API into Groupie RecyclerView items
+     * @param characterData the data from the API
+     * @return a list of Groupie recyclerview items
+     */
+    fun convertToCharacterItems(characterData: List<Character>?): List<CharacterItem>? {
+        characterData?.let {
+            val items = mutableListOf<CharacterItem>()
+            it.forEach { character ->
+                items.add(CharacterItem(character))
+            }
+            return items
+        }
+        return null
+    }
+
+    /**
+     * Convert comic data from API into Groupie RecyclerView items
+     * @param comicData the data from the API
+     * @return a list of Groupie recyclerview items
+     */
+    fun convertToComicItems(comicData: List<Comic>?): List<ComicItem>? {
+        comicData?.let {
+            val items = mutableListOf<ComicItem>()
+            it.forEach { comic ->
+                items.add(ComicItem(comic))
             }
             return items
         }

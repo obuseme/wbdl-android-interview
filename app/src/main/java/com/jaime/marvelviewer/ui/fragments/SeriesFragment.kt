@@ -65,17 +65,6 @@ class SeriesFragment: BaseFragment<FragmentSeriesBinding>() {
     }
 
     /**
-     * Check if a toast message is available to be displayed
-     * @param errorCode the unique error value
-     */
-    private fun toastMessage(errorCode: ErrorCode?) {
-        val errorMessage = Util.getStringFromErrorCode(resources, errorCode)
-        errorMessage?.let {
-            Toast.makeText(context, it, Toast.LENGTH_LONG).show()
-        }
-    }
-
-    /**
      * Initialise RecyclerView Properties
      */
     private fun initRecyclerView() {

@@ -1,15 +1,12 @@
 package com.jaime.marvelviewer.ui.fragments
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import com.jaime.marvelviewer.R
 import com.jaime.marvelviewer.databinding.FragmentComicDetailBinding
 import com.jaime.marvelviewer.model.DetailData
-import com.jaime.marvelviewer.model.character.Character
-import com.jaime.marvelviewer.model.comic.Comic
 import com.jaime.marvelviewer.ui.DetailViewModel
 import com.jaime.marvelviewer.ui.groupie.CharacterItem
 import com.jaime.marvelviewer.ui.groupie.ComicItem
@@ -46,17 +43,15 @@ class DetailFragment: BaseFragment<FragmentComicDetailBinding>() {
      */
     private fun initObserver() {
         viewModel.detailData.observe(viewLifecycleOwner) {
+            binding.isLoading = (it.status == Status.LOADING)
             when (it.status) {
                 Status.SUCCESS -> {
-                    updateData(it.data)
-                    binding.progressBarLoadingComicDetails.visibility = View.GONE
+                    updateDetailData(it.data)
                 }
                 Status.ERROR -> {
-                    binding.progressBarLoadingComicDetails.visibility = View.GONE
+                    toastMessage(it.errorCode)
                 }
-                Status.LOADING -> {
-                    binding.progressBarLoadingComicDetails.visibility = View.VISIBLE
-                }
+                Status.LOADING -> { /* Covered by data binding */ }
             }
         }
     }
@@ -77,7 +72,8 @@ class DetailFragment: BaseFragment<FragmentComicDetailBinding>() {
     /**
      * Update the recyclerview character data
      */
-    private fun updateData(detailData: DetailData?) {
+    private fun updateDetailData(detailData: DetailData?) {
+        // Initial Top Image
         characterGroupAdapter.apply {
             clear()
             add(ImageItem(args.comicSeriesThumbnail))
@@ -104,15 +100,13 @@ class DetailFragment: BaseFragment<FragmentComicDetailBinding>() {
      * Populate characters in recyclerview
      * @param characterData the list of characters from the API
      */
-    private fun populateCharacters(characterData: List<Character>?) {
+    private fun populateCharacters(characterData: List<CharacterItem>?) {
         characterGroupAdapter.apply {
             add(HeaderItem(resources.getString(R.string.character_detail_header)))
 
             val section = Section()
             section.apply {
-                characterData?.forEach {
-                    add(CharacterItem(it))
-                }
+                characterData?.let { addAll(it) }
             }
             add(section)
         }
@@ -131,15 +125,13 @@ class DetailFragment: BaseFragment<FragmentComicDetailBinding>() {
      * Populate comics in recyclerview
      * @param comicData the list of comics from the API
      */
-    private fun populateComics(comicData: List<Comic>?) {
+    private fun populateComics(comicData: List<ComicItem>?) {
         characterGroupAdapter.apply {
             add(HeaderItem(resources.getString(R.string.comic_detail_header)))
 
             val section = Section()
             section.apply {
-                comicData?.forEach {
-                    add(ComicItem(it))
-                }
+                comicData?.let { addAll(it) }
             }
             add(section)
         }

@@ -18,6 +18,7 @@
     <!-- Error Messages -->
     <string name="error_db_null_or_empty">Unable to read from DB or DB is empty</string>
     <string name="error_using_cached_data">Unable to connect to API, using cached data</string>
+    <string name="error_network">There was a network problem, please try again</string>
     <string name="error_generic">There was a problem, please try again</string>
 
 </resources>
