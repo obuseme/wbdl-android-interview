@@ -9,5 +9,5 @@ object Constants {
 
     const val COMIC_DETAIL_SPAN_SIZE = 2
 
-    const val SPLASH_SCREEN_DELAY = 3000
+    const val SPLASH_SCREEN_DELAY = 3000L
 }
