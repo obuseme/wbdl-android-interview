@@ -24,7 +24,8 @@ class DataFactory {
             it.forEach { series ->
                 items.add(SeriesItem(series))
             }
-            return items
+            return if (items.isEmpty()) null
+            else items
         }
         return null
     }
@@ -40,7 +41,8 @@ class DataFactory {
             it.forEach { character ->
                 items.add(CharacterItem(character))
             }
-            return items
+            return if (items.isEmpty()) null
+            else items
         }
         return null
     }
@@ -56,7 +58,8 @@ class DataFactory {
             it.forEach { comic ->
                 items.add(ComicItem(comic))
             }
-            return items
+            return if (items.isEmpty()) null
+            else items
         }
         return null
     }
