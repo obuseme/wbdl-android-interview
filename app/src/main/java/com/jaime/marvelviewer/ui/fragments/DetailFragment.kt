@@ -114,6 +114,7 @@ class DetailFragment: BaseFragment<FragmentComicDetailBinding>() {
 
     /**
      * Inform recyclerview there are no characters therefore display empty message
+     * TODO: Remove this business logic from UI and abstract into ViewModel layer
      */
     private fun noCharacters() {
         characterGroupAdapter.apply {
@@ -139,6 +140,7 @@ class DetailFragment: BaseFragment<FragmentComicDetailBinding>() {
 
     /**
      * Inform recyclerview there are no comics therefore display empty message
+     * TODO: Remove this business logic from UI and abstract into ViewModel layer
      */
     private fun noComics() {
         characterGroupAdapter.apply {
