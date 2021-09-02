@@ -20,4 +20,7 @@
     <style name="Marvel.Text.Title.Comic">
         <item name="android:gravity">left</item>
     </style>
+    <style name="Marvel.Text.Title.Splash">
+        <item name="android:textSize">40sp</item>
+    </style>
 </resources>
