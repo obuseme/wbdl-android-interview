@@ -5,6 +5,6 @@ import com.jaime.marvelviewer.ui.groupie.ComicItem
 import com.jaime.marvelviewer.util.Resource
 
 data class DetailData(
-        val characters: Resource<List<CharacterItem>>? = null,
-        val comics: Resource<List<ComicItem>>? = null
+    val characters: Resource<List<CharacterItem>>? = null,
+    val comics: Resource<List<ComicItem>>? = null
 )

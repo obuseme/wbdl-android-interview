@@ -5,7 +5,10 @@ import com.jaime.marvelviewer.model.character.Character
 import com.jaime.marvelviewer.util.*
 
 class CharacterRepository(private val marvelAPI: MarvelAPI) {
+
     /**
+     * Request character data from API
+     * @return a [Resource] with the result of the character data within a list
      */
     suspend fun requestCharacterData(id: String): Resource<List<Character>> {
         return try {

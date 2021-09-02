@@ -5,7 +5,10 @@ import com.jaime.marvelviewer.model.comic.Comic
 import com.jaime.marvelviewer.util.*
 
 class ComicRepository(private val marvelAPI: MarvelAPI) {
+
     /**
+     * Request comic data from API
+     * @return a [Resource] with the result of the comic data within a list
      */
     suspend fun requestComicData(id: String): Resource<List<Comic>> {
         return try {
