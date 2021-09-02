@@ -16,6 +16,7 @@ class SeriesRepository(
      * @return a [Resource] with the result of the series data within a list
      */
     suspend fun requestSeriesData(): Resource<List<Series>> {
+        return getSeriesDataFromDB(false)
         return try {
             // API timestamp as per requirements
             val timeStamp = Util.timeStamp

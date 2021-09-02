@@ -6,11 +6,13 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import com.jaime.marvelviewer.R
+import com.jaime.marvelviewer.model.comic.Price
 import com.jaime.marvelviewer.util.Constants.API_KEY
 import com.jaime.marvelviewer.util.Constants.PRIVATE_KEY
 import java.lang.Exception
 import java.math.BigInteger
 import java.security.MessageDigest
+import java.text.DecimalFormat
 import java.util.concurrent.TimeUnit
 
 object Util {
@@ -88,5 +90,27 @@ object Util {
             }
         }
         catch (e: Exception) { "" }
+    }
+
+    /**
+     * Get the prices in a friendly String format
+     * If the price type from the API does not conform to [com.jaime.marvelviewer.model.comic.PriceType] simply use an empty string
+     * Same if price is null
+     */
+    fun List<Price>.getPrices(): String {
+        var returnPrice = ""
+        forEach {
+            returnPrice += "${it.type?.friendlyString ?: "" } ${it.price?.formatCurrency() ?: ""} "
+        }
+        return returnPrice
+    }
+
+    /**
+     * Format a double into readable currency
+     */
+    private fun Double.formatCurrency(): String {
+        val format = DecimalFormat("#,##0.00")
+        format.isDecimalSeparatorAlwaysShown = false
+        return "$" + format.format(this).toString()
     }
 }

@@ -17,4 +17,7 @@
     <style name="Marvel.Text.Title.Dark">
         <item name="android:textColor">@android:color/black</item>
     </style>
+    <style name="Marvel.Text.Title.Comic">
+        <item name="android:gravity">left</item>
+    </style>
 </resources>

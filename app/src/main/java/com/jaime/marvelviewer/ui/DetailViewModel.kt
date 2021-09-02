@@ -1,11 +1,7 @@
 package com.jaime.marvelviewer.ui
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.jaime.marvelviewer.model.character.Character
-import com.jaime.marvelviewer.model.comic.Comic
+import androidx.lifecycle.*
+import com.jaime.marvelviewer.model.DetailData
 import com.jaime.marvelviewer.repository.CharacterRepository
 import com.jaime.marvelviewer.repository.ComicRepository
 import com.jaime.marvelviewer.util.Resource
@@ -16,21 +12,21 @@ class DetailViewModel: ViewModel() {
     private val characterRepository: CharacterRepository by inject(CharacterRepository::class.java)
     private val comicRepository: ComicRepository by inject(ComicRepository::class.java)
 
-    private val _characterData = MutableLiveData<Resource<List<Character>>>(Resource.loading())
-    val characterData: LiveData<Resource<List<Character>>> = _characterData
+    private val _detailData = MutableLiveData<Resource<DetailData>>(Resource.loading())
+    val detailData: LiveData<Resource<DetailData>> = _detailData
 
-    private val _comicData = MutableLiveData<Resource<List<Comic>>>(Resource.loading())
-    val comicData: LiveData<Resource<List<Comic>>> = _comicData
-
-    fun getCharacterData(id: String) {
+    /**
+     * Request the full series details as per requirement
+     * 'The UI of the screen should remain in a loading state until both API requests complete'
+     * Both the character and comic endpoints are queried and only when both have a result, update Live Data
+     */
+    fun requestSeriesDetails(id: String) {
         viewModelScope.launch {
-            _characterData.postValue(characterRepository.requestCharacterData(id))
-        }
-    }
-
-    fun getComicData(id: String) {
-        viewModelScope.launch {
-            _comicData.postValue(comicRepository.requestComicData(id))
+            val characterData = characterRepository.requestCharacterData(id)
+            val comicData = comicRepository.requestComicData(id)
+            _detailData.postValue(
+                Resource.success(data = DetailData(characterData, comicData))
+            )
         }
     }
 }

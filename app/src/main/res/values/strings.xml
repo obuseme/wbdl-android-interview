@@ -8,6 +8,12 @@
 
     <string name="character_detail_header">Characters</string>
     <string name="character_detail_no_characters">No Characters found</string>
+    <string name="comic_detail_header">Comics</string>
+    <string name="comic_detail_no_characters">No Comics found</string>
+
+    <string name="comic_issue_number">Issue Number: %s</string>
+    <string name="comic_price">Price: %s</string>
+    <string name="comic_format">Format: %s</string>
 
     <!-- Error Messages -->
     <string name="error_db_null_or_empty">Unable to read from DB or DB is empty</string>

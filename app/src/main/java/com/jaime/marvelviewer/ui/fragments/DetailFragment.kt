@@ -7,9 +7,12 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import com.jaime.marvelviewer.R
 import com.jaime.marvelviewer.databinding.FragmentComicDetailBinding
+import com.jaime.marvelviewer.model.DetailData
 import com.jaime.marvelviewer.model.character.Character
+import com.jaime.marvelviewer.model.comic.Comic
 import com.jaime.marvelviewer.ui.DetailViewModel
 import com.jaime.marvelviewer.ui.groupie.CharacterItem
+import com.jaime.marvelviewer.ui.groupie.ComicItem
 import com.jaime.marvelviewer.ui.groupie.HeaderItem
 import com.jaime.marvelviewer.ui.groupie.ImageItem
 import com.jaime.marvelviewer.util.Constants.COMIC_DETAIL_SPAN_SIZE
@@ -33,20 +36,17 @@ class DetailFragment: BaseFragment<FragmentComicDetailBinding>() {
         initObserver()
         initRecyclerView()
 
-        // Request Character
+        // Request Series Details
         val comicId = args.comicId.toString()
-        viewModel.getCharacterData(comicId)
-
-        // Request Comics
-        viewModel.getComicData(comicId)
+        viewModel.requestSeriesDetails(comicId)
     }
 
     /**
      * Initialise Observer LiveData from ViewModel
      */
     private fun initObserver() {
-        viewModel.characterData.observe(viewLifecycleOwner) {
-            when(it.status) {
+        viewModel.detailData.observe(viewLifecycleOwner) {
+            when (it.status) {
                 Status.SUCCESS -> {
                     updateData(it.data)
                     binding.progressBarLoadingComicDetails.visibility = View.GONE
@@ -62,28 +62,41 @@ class DetailFragment: BaseFragment<FragmentComicDetailBinding>() {
     }
 
     /**
+     * Initialise RecyclerView Properties
+     */
+    private fun initRecyclerView() {
+        characterGroupAdapter.spanCount = COMIC_DETAIL_SPAN_SIZE
+        binding.recyclerViewComicDetails.apply {
+            layoutManager = GridLayoutManager(context, characterGroupAdapter.spanCount).apply {
+                spanSizeLookup = characterGroupAdapter.spanSizeLookup
+            }
+            adapter = characterGroupAdapter
+        }
+    }
+
+    /**
      * Update the recyclerview character data
      */
-    private fun updateData(characterData: List<Character>?) {
+    private fun updateData(detailData: DetailData?) {
         characterGroupAdapter.apply {
             clear()
             add(ImageItem(args.comicSeriesThumbnail))
         }
 
-        if(characterData?.isEmpty() == true) {
-            noCharacters()
-        }
-        else {
+        val characterData = detailData?.characters?.data
+        if(characterData?.isNotEmpty() == true) {
             populateCharacters(characterData)
         }
-    }
+        else {
+            noCharacters()
+        }
 
-    /**
-     * Inform recyclerview there are no characters therefore display empty message
-     */
-    private fun noCharacters() {
-        characterGroupAdapter.apply {
-            add(HeaderItem(resources.getString(R.string.character_detail_no_characters)))
+        val comicData = detailData?.comics?.data
+        if(comicData?.isNotEmpty() == true) {
+            populateComics(comicData)
+        }
+        else {
+            noComics()
         }
     }
 
@@ -106,15 +119,38 @@ class DetailFragment: BaseFragment<FragmentComicDetailBinding>() {
     }
 
     /**
-     * Initialise RecyclerView Properties
+     * Inform recyclerview there are no characters therefore display empty message
      */
-    private fun initRecyclerView() {
-        characterGroupAdapter.spanCount = COMIC_DETAIL_SPAN_SIZE
-        binding.recyclerViewComicDetails.apply {
-            layoutManager = GridLayoutManager(context, characterGroupAdapter.spanCount).apply {
-                spanSizeLookup = characterGroupAdapter.spanSizeLookup
+    private fun noCharacters() {
+        characterGroupAdapter.apply {
+            add(HeaderItem(resources.getString(R.string.character_detail_no_characters)))
+        }
+    }
+
+    /**
+     * Populate comics in recyclerview
+     * @param comicData the list of comics from the API
+     */
+    private fun populateComics(comicData: List<Comic>?) {
+        characterGroupAdapter.apply {
+            add(HeaderItem(resources.getString(R.string.comic_detail_header)))
+
+            val section = Section()
+            section.apply {
+                comicData?.forEach {
+                    add(ComicItem(it))
+                }
             }
-            adapter = characterGroupAdapter
+            add(section)
+        }
+    }
+
+    /**
+     * Inform recyclerview there are no comics therefore display empty message
+     */
+    private fun noComics() {
+        characterGroupAdapter.apply {
+            add(HeaderItem(resources.getString(R.string.comic_detail_no_characters)))
         }
     }
 }

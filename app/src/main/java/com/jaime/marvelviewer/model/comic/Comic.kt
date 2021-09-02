@@ -7,8 +7,7 @@ data class Comic(
     val title: String,
     val issueNumber: String,
     val description: String,
-    val isbn: String,
     val format: String,
-    val pageCount: Int,
-    val thumbnail: Thumbnail
+    val thumbnail: Thumbnail,
+    val prices: List<Price>? = null
 )
