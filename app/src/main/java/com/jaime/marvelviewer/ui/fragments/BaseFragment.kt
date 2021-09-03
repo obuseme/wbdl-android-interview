@@ -15,7 +15,7 @@ import com.jaime.marvelviewer.util.Util
  * Base Fragment class to abstract away ViewBinding boilerplate code
  * All fragments will inherit from this, only needing to override [initOnViewCreated] when desired functionality happens
  */
-abstract class BaseFragment<VB: ViewBinding>: Fragment() {
+abstract class BaseFragment<VB : ViewBinding> : Fragment() {
     private var _binding: VB? = null
     val binding get() = _binding!!
 

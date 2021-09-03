@@ -10,7 +10,7 @@ import com.jaime.marvelviewer.util.Resource
 import kotlinx.coroutines.launch
 import org.koin.java.KoinJavaComponent.inject
 
-class SeriesViewModel: ViewModel() {
+class SeriesViewModel : ViewModel() {
     private val repository: SeriesRepository by inject(SeriesRepository::class.java)
     private val dataFactory: DataFactory by inject(DataFactory::class.java)
 

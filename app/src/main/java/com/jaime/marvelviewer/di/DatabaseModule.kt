@@ -16,7 +16,7 @@ val databaseModule = module {
     }
 
     fun provideSeriesDao(database: MarvelDatabase): SeriesDAO {
-        return  database.seriesDAO()
+        return database.seriesDAO()
     }
 
     single { provideDatabase(androidApplication()) }

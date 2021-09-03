@@ -6,10 +6,10 @@ import com.jaime.marvelviewer.model.character.Character
 import com.jaime.marvelviewer.model.comic.Comic
 import com.jaime.marvelviewer.model.series.SeriesInfo
 import com.jaime.marvelviewer.ui.DataFactory
-import org.junit.Test
 import kotlin.test.assertNotNull
 import kotlin.test.assertNull
 import kotlin.test.assertTrue
+import org.junit.Test
 
 /**
  * Tests covering different states of data that can be send to the data factory for conversion
@@ -61,7 +61,9 @@ class DataFactoryTests {
 
     @Test
     fun `Given a formed character list with 1 item, a list with 1 item is returned`() {
-        val character = Character(1, "Title", "Description", Thumbnail("test", "txt"), SeriesInfo(5))
+        val character = Character(
+            1, "Title", "Description", Thumbnail("test", "txt"), SeriesInfo(5)
+        )
         val characterList = mutableListOf<Character>()
         characterList.add(character)
 
@@ -85,7 +87,9 @@ class DataFactoryTests {
 
     @Test
     fun `Given a formed comic list with 1 item, a list with 1 item is returned`() {
-        val comic = Comic(1, "Title", "10000000", "Description", "Format", Thumbnail("test", "txt"), null)
+        val comic = Comic(
+            1, "Title", "10000000", "Description", "Format", Thumbnail("test", "txt"), null
+        )
         val comicList = mutableListOf<Comic>()
         comicList.add(comic)
 

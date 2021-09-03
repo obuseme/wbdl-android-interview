@@ -3,13 +3,18 @@ package com.jaime.marvelviewer.repository
 import com.jaime.marvelviewer.api.MarvelAPI
 import com.jaime.marvelviewer.db.Series
 import com.jaime.marvelviewer.db.SeriesDAO
-import com.jaime.marvelviewer.util.*
+import com.jaime.marvelviewer.util.Constants
+import com.jaime.marvelviewer.util.ErrorCode
+import com.jaime.marvelviewer.util.Resource
+import com.jaime.marvelviewer.util.SeriesConverter
+import com.jaime.marvelviewer.util.Util
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 class SeriesRepository(
     private val marvelAPI: MarvelAPI,
-    private val seriesDAO: SeriesDAO) {
+    private val seriesDAO: SeriesDAO
+) {
 
     /**
      * Request series data from API
@@ -27,7 +32,7 @@ class SeriesRepository(
                 hash = Util.getMD5Hash(timeStamp)
             )
 
-            return if(response.isSuccessful) {
+            return if (response.isSuccessful) {
                 // If the response has a body containing data, store it in the DB and return the cached results
                 response.body()?.let {
                     val results = SeriesConverter.convertToDBSeriesList(it.data)
@@ -38,11 +43,9 @@ class SeriesRepository(
                     return getSeriesDataFromDB(true)
                 }
                 return Resource.error(ErrorCode.NETWORK_ERROR, null)
-            }
-            else {
+            } else {
                 getSeriesDataFromDB(false)
             }
-
         } catch (e: Exception) {
             getSeriesDataFromDB(false)
         }
@@ -53,14 +56,15 @@ class SeriesRepository(
      * @param apiResponseSuccessful a boolean flag to check whether an error message is needed to be passed back or not
      * @return a [Resource] containing the result from the local DB
      */
-    private suspend fun getSeriesDataFromDB(apiResponseSuccessful: Boolean): Resource<List<Series>> {
+    private suspend fun getSeriesDataFromDB(
+        apiResponseSuccessful: Boolean
+    ): Resource<List<Series>> {
         val seriesData = getDBSeries()
-        if(apiResponseSuccessful) return Resource.success(data = seriesData)
+        if (apiResponseSuccessful) return Resource.success(data = seriesData)
 
-        return if(seriesData.isNotEmpty()) {
+        return if (seriesData.isNotEmpty()) {
             return Resource.success(ErrorCode.DB_USING_CACHED_DATA, seriesData)
-        }
-        else {
+        } else {
             Resource.error(ErrorCode.DB_EMPTY_OR_NULL, null)
         }
     }

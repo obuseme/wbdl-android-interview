@@ -1,6 +1,9 @@
 package com.jaime.marvelviewer.ui
 
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.jaime.marvelviewer.model.DetailData
 import com.jaime.marvelviewer.repository.CharacterRepository
 import com.jaime.marvelviewer.repository.ComicRepository
@@ -10,7 +13,7 @@ import com.jaime.marvelviewer.util.Status
 import kotlinx.coroutines.launch
 import org.koin.java.KoinJavaComponent.inject
 
-class DetailViewModel: ViewModel() {
+class DetailViewModel : ViewModel() {
     private val characterRepository: CharacterRepository by inject(CharacterRepository::class.java)
     private val comicRepository: ComicRepository by inject(ComicRepository::class.java)
     private val dataFactory: DataFactory by inject(DataFactory::class.java)
@@ -29,7 +32,9 @@ class DetailViewModel: ViewModel() {
             val comicData = comicRepository.requestComicData(id)
 
             val characterItems = dataFactory.convertToCharacterItems(characterData.data)
-            val characterResource = Resource(characterData.status, characterItems, characterData.errorCode)
+            val characterResource = Resource(
+                characterData.status, characterItems, characterData.errorCode
+            )
 
             val comicItems = dataFactory.convertToComicItems(comicData.data)
             val comicResource = Resource(comicData.status, comicItems, comicData.errorCode)
@@ -46,10 +51,9 @@ class DetailViewModel: ViewModel() {
      * Logic to decide what resource to wrap the underlining data with, can be either [Status.SUCCESS] or [Status.ERROR]
      */
     private fun postData(characterStatus: Status, comicStatus: Status, data: DetailData) {
-        val detailData = if(characterStatus == Status.SUCCESS && comicStatus == Status.SUCCESS) {
+        val detailData = if (characterStatus == Status.SUCCESS && comicStatus == Status.SUCCESS) {
             Resource.success(null, data)
-        }
-        else {
+        } else {
             Resource.error(ErrorCode.ERROR_GENERIC, data)
         }
 

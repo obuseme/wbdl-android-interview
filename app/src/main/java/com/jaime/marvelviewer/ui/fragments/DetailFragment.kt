@@ -19,13 +19,17 @@ import com.xwray.groupie.GroupieViewHolder
 import com.xwray.groupie.Section
 import org.koin.java.KoinJavaComponent.inject
 
-class DetailFragment: BaseFragment<FragmentComicDetailBinding>() {
+class DetailFragment : BaseFragment<FragmentComicDetailBinding>() {
     private val viewModel: DetailViewModel by inject(DetailViewModel::class.java)
     private val args: DetailFragmentArgs by navArgs()
 
     private val characterGroupAdapter = GroupAdapter<GroupieViewHolder>()
 
-    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentComicDetailBinding
+    override val bindingInflater: (
+        LayoutInflater,
+        ViewGroup?,
+        Boolean
+    ) -> FragmentComicDetailBinding
         get() = FragmentComicDetailBinding::inflate
 
     override fun initOnViewCreated() {
@@ -98,18 +102,16 @@ class DetailFragment: BaseFragment<FragmentComicDetailBinding>() {
         }
 
         val characterData = detailData?.characters?.data
-        if(characterData?.isNotEmpty() == true) {
+        if (characterData?.isNotEmpty() == true) {
             populateCharacters(characterData)
-        }
-        else {
+        } else {
             noCharacters()
         }
 
         val comicData = detailData?.comics?.data
-        if(comicData?.isNotEmpty() == true) {
+        if (comicData?.isNotEmpty() == true) {
             populateComics(comicData)
-        }
-        else {
+        } else {
             noComics()
         }
     }

@@ -7,7 +7,7 @@ import com.jaime.marvelviewer.databinding.CharacterItemBinding
 import com.jaime.marvelviewer.model.character.Character
 import com.xwray.groupie.viewbinding.BindableItem
 
-class CharacterItem(private val character: Character): BindableItem<CharacterItemBinding>() {
+class CharacterItem(private val character: Character) : BindableItem<CharacterItemBinding>() {
     override fun getLayout(): Int = R.layout.character_item
 
     override fun initializeViewBinding(view: View): CharacterItemBinding =

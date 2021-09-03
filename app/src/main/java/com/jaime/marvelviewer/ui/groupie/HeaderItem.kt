@@ -5,11 +5,11 @@ import com.jaime.marvelviewer.R
 import com.jaime.marvelviewer.databinding.HeaderItemBinding
 import com.xwray.groupie.viewbinding.BindableItem
 
-class HeaderItem(private val headerTitle: String): BindableItem<HeaderItemBinding>() {
+class HeaderItem(private val headerTitle: String) : BindableItem<HeaderItemBinding>() {
     override fun getLayout(): Int = R.layout.header_item
 
     override fun initializeViewBinding(view: View): HeaderItemBinding =
-            HeaderItemBinding.bind(view)
+        HeaderItemBinding.bind(view)
 
     override fun bind(viewBinding: HeaderItemBinding, position: Int) {
         viewBinding.textviewHeaderItemTitle.text = headerTitle

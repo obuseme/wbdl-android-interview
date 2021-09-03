@@ -2,7 +2,10 @@ package com.jaime.marvelviewer.repository
 
 import com.jaime.marvelviewer.api.MarvelAPI
 import com.jaime.marvelviewer.model.comic.Comic
-import com.jaime.marvelviewer.util.*
+import com.jaime.marvelviewer.util.Constants
+import com.jaime.marvelviewer.util.ErrorCode
+import com.jaime.marvelviewer.util.Resource
+import com.jaime.marvelviewer.util.Util
 
 class ComicRepository(private val marvelAPI: MarvelAPI) {
 
@@ -23,16 +26,14 @@ class ComicRepository(private val marvelAPI: MarvelAPI) {
                 hash = Util.getMD5Hash(timeStamp)
             )
 
-            return if(response.isSuccessful) {
+            return if (response.isSuccessful) {
                 response.body()?.let {
                     return Resource.success(data = it.data.results)
                 }
                 return Resource.error(ErrorCode.NETWORK_ERROR, null)
-            }
-            else {
+            } else {
                 Resource.error(ErrorCode.NETWORK_ERROR, null)
             }
-
         } catch (e: Exception) {
             Resource.error(ErrorCode.NETWORK_ERROR, null)
         }
