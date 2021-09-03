@@ -32,3 +32,6 @@ TODOs
 - Abstract business logic on detail screen when no characters/ comics come back, could do with being taken off the main thread
 - Remove SeriesConverter class and unify both Series (Model and DB) classes
 - Much more test coverage
+
+Problems Building with ktlint?
+- If there are any problems building when ktlint is throwing errors, it can be disabled by simply removing 'preBuild.dependsOn('ktlintCheck')' from the bottom of 'build.gradle'
