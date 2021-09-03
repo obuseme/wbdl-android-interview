@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_nav_graph"
+    app:startDestination="@id/seriesFragment">
+
+    <fragment
+        android:id="@+id/seriesFragment"
+        android:name="com.jaime.marvelviewer.ui.fragments.SeriesFragment"
+        android:label="SeriesFragment"
+        tools:layout="@layout/fragment_series">
+        <action
+            android:id="@+id/action_seriesFragment_to_DetailFragment"
+            app:destination="@id/detailFragment"
+            app:enterAnim="@anim/anim_slide_in_left"
+            app:exitAnim="@anim/anim_slide_out_left"
+            app:popEnterAnim="@anim/anim_slide_in_right"
+            app:popExitAnim="@anim/anim_slide_out_right"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/detailFragment"
+        android:name="com.jaime.marvelviewer.ui.fragments.DetailFragment"
+        android:label="DetailFragment"
+        tools:layout="@layout/fragment_comic_detail">
+        <argument
+            android:name="comicId"
+            app:argType="integer"
+            android:defaultValue="0" />
+        <argument
+            android:name="comicTitle"
+            app:argType="string"
+            android:defaultValue="" />
+        <argument
+            android:name="comicSeriesThumbnail"
+            app:argType="string"
+            android:defaultValue="" />
+    </fragment>
+
+</navigation>
