@@ -109,3 +109,6 @@ ktlint {
     android.set(true)
     outputColorName.set("RED")
 }
+
+// Run KtLint to check for code style errors, fail build if any found
+preBuild.dependsOn('ktlintCheck')
