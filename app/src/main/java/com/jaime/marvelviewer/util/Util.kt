@@ -31,7 +31,6 @@ object Util {
      */
     fun getMD5Hash(timeStamp: String) = "$timeStamp$PRIVATE_KEY$API_KEY".toMS5Hash()
 
-
     /**
      * Extension function to create a MD5 hash
      * https://stackoverflow.com/a/64171625/13110837
@@ -45,7 +44,7 @@ object Util {
      * Specify 'Unknown' if comic year is zero
      */
     fun String.toComicYear(): String {
-        return if(this == "0") "Unknown"
+        return if (this == "0") "Unknown"
         else
             this
     }
@@ -54,7 +53,7 @@ object Util {
      * Specify '?' if rating is unknown
      */
     fun String.toRating(): String =
-        if(isNullOrEmpty()) "?" else this
+        if (isNullOrEmpty()) "?" else this
 
     /**
      * Set a recyclerview divider
@@ -85,13 +84,13 @@ object Util {
         return try {
             return when (errorCode) {
                 ErrorCode.DB_EMPTY_OR_NULL -> resources.getString(R.string.error_db_null_or_empty)
-                ErrorCode.DB_USING_CACHED_DATA -> resources.getString(R.string.error_using_cached_data)
+                ErrorCode.DB_USING_CACHED_DATA ->
+                    resources.getString(R.string.error_using_cached_data)
                 ErrorCode.NETWORK_ERROR -> resources.getString(R.string.error_network)
                 ErrorCode.ERROR_GENERIC -> resources.getString(R.string.error_generic)
                 else -> null
             }
-        }
-        catch (e: Exception) {
+        } catch (e: Exception) {
             null
         }
     }

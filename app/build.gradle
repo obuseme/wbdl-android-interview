@@ -3,6 +3,7 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-kapt'
     id 'androidx.navigation.safeargs.kotlin'
+    id 'org.jlleitschuh.gradle.ktlint'
 }
 
 android {
@@ -103,3 +104,11 @@ dependencies {
     androidTestImplementation 'androidx.test:rules:1.4.0'
     androidTestImplementation 'androidx.test:runner:1.4.0'
 }
+
+ktlint {
+    android.set(true)
+    outputColorName.set("RED")
+}
+
+// Run KtLint to check for code style errors, fail build if any found
+preBuild.dependsOn('ktlintCheck')

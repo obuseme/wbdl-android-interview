@@ -2,23 +2,20 @@ package com.jaime.marvelviewer.ui.fragments
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.jaime.marvelviewer.R
 import com.jaime.marvelviewer.databinding.FragmentSeriesBinding
 import com.jaime.marvelviewer.ui.SeriesViewModel
 import com.jaime.marvelviewer.ui.groupie.SeriesItem
-import com.jaime.marvelviewer.util.ErrorCode
 import com.jaime.marvelviewer.util.Resource
 import com.jaime.marvelviewer.util.Status
-import com.jaime.marvelviewer.util.Util
 import com.jaime.marvelviewer.util.Util.setDivider
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import org.koin.java.KoinJavaComponent.inject
 
-class SeriesFragment: BaseFragment<FragmentSeriesBinding>() {
+class SeriesFragment : BaseFragment<FragmentSeriesBinding>() {
     private val viewModel: SeriesViewModel by inject(SeriesViewModel::class.java)
     private val comicGroupAdapter = GroupAdapter<GroupieViewHolder>()
 
@@ -38,7 +35,7 @@ class SeriesFragment: BaseFragment<FragmentSeriesBinding>() {
     private fun initObserver() {
         viewModel.seriesData.observe(viewLifecycleOwner) {
             binding.isLoading = (it.status == Status.LOADING)
-            when(it.status) {
+            when (it.status) {
                 Status.SUCCESS -> {
                     updateSeriesItems(it)
                 }

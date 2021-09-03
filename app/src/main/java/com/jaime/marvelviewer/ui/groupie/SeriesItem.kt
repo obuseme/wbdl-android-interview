@@ -9,11 +9,11 @@ import com.jaime.marvelviewer.util.Util.toComicYear
 import com.jaime.marvelviewer.util.Util.toRating
 import com.xwray.groupie.viewbinding.BindableItem
 
-class SeriesItem(val series: Series): BindableItem<SeriesItemBinding>() {
+class SeriesItem(val series: Series) : BindableItem<SeriesItemBinding>() {
     override fun getLayout(): Int = R.layout.series_item
 
     override fun initializeViewBinding(view: View): SeriesItemBinding =
-            SeriesItemBinding.bind(view)
+        SeriesItemBinding.bind(view)
 
     override fun bind(viewBinding: SeriesItemBinding, position: Int) {
         bindTextViews(viewBinding)
@@ -38,7 +38,10 @@ class SeriesItem(val series: Series): BindableItem<SeriesItemBinding>() {
 
         val comicsAvailable = series.available.toString()
         viewBinding.textViewComicItemNumber.text =
-            String.format(resources.getString(R.string.series_item_number_of_comics), comicsAvailable)
+            String.format(
+                resources.getString(R.string.series_item_number_of_comics),
+                comicsAvailable
+            )
 
         val startYear = (series.startYear ?: 0).toString().toComicYear()
         viewBinding.textViewComicStartDate.text =

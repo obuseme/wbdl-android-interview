@@ -8,11 +8,11 @@ import com.jaime.marvelviewer.model.comic.Comic
 import com.jaime.marvelviewer.util.Util.getPrices
 import com.xwray.groupie.viewbinding.BindableItem
 
-class ComicItem(private val comic: Comic): BindableItem<ComicItemBinding>() {
+class ComicItem(private val comic: Comic) : BindableItem<ComicItemBinding>() {
     override fun getLayout(): Int = R.layout.comic_item
 
     override fun initializeViewBinding(view: View): ComicItemBinding =
-            ComicItemBinding.bind(view)
+        ComicItemBinding.bind(view)
 
     override fun bind(viewBinding: ComicItemBinding, position: Int) {
         bindTextViews(viewBinding)
@@ -41,11 +41,11 @@ class ComicItem(private val comic: Comic): BindableItem<ComicItemBinding>() {
 
         viewBinding.textViewComicTitle.text = comic.title
         viewBinding.textViewComicIssueNumber.text =
-                String.format(resources.getString(R.string.comic_issue_number), comic.issueNumber)
+            String.format(resources.getString(R.string.comic_issue_number), comic.issueNumber)
         viewBinding.textViewComicPrice.text =
-                String.format(resources.getString(R.string.comic_price), comic.prices?.getPrices())
+            String.format(resources.getString(R.string.comic_price), comic.prices?.getPrices())
         viewBinding.textViewComicFormat.text =
-                String.format(resources.getString(R.string.comic_format), comic.format)
+            String.format(resources.getString(R.string.comic_format), comic.format)
 
         viewBinding.textViewComicDescription.text = comic.description
     }

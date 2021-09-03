@@ -1,10 +1,11 @@
 package com.jaime.marvelviewer
 
 import android.app.Application
-import androidx.room.Room
-import com.jaime.marvelviewer.db.MarvelDatabase
-import com.jaime.marvelviewer.di.*
-import com.jaime.marvelviewer.util.Constants.DATABASE_NAME
+import com.jaime.marvelviewer.di.appModule
+import com.jaime.marvelviewer.di.databaseModule
+import com.jaime.marvelviewer.di.fragmentModule
+import com.jaime.marvelviewer.di.repositoryModule
+import com.jaime.marvelviewer.di.viewModelModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -25,5 +26,4 @@ class MainApplication : Application() {
             )
         }
     }
-
 }

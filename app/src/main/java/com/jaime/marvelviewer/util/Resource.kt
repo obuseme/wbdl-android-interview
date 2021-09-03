@@ -15,5 +15,4 @@ data class Resource<out T>(val status: Status, val data: T?, val errorCode: Erro
             return Resource(Status.LOADING, null, null)
         }
     }
-
 }

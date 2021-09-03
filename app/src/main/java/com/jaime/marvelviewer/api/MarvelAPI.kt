@@ -26,10 +26,10 @@ interface MarvelAPI {
 
     @GET("v1/public/series/{seriesId}/comics")
     suspend fun getComic(
-            @Path("seriesId") seriesId: String,
-            @Query("apikey") apiKey: String,
-            @Query("ts") timeStamp: String,
-            @Query("hash") hash: String,
-            @Query("orderBy") orderBy: String = "issueNumber"
+        @Path("seriesId") seriesId: String,
+        @Query("apikey") apiKey: String,
+        @Query("ts") timeStamp: String,
+        @Query("hash") hash: String,
+        @Query("orderBy") orderBy: String = "issueNumber"
     ): Response<ComicAPIResponse>
 }
